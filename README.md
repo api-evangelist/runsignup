@@ -38,6 +38,12 @@ The RunSignup REST API provides access to race and event management operations i
 - [Getting Started](https://runsignup.com/API/GettingStarted)
 - [Authentication](https://runsignup.com/API/GettingStarted)
 - [GitHub Repository](https://github.com/RunSignUp-Team/OpenSource)
+- [Spectral Rules](rules/runsignup-rules.yml)
+- [Vocabulary](vocabulary/runsignup-vocabulary.yml)
+- [JSON Schema](json-schema/runsignup-race-schema.json)
+- [JSON Structure](json-structure/runsignup-race-structure.json)
+- [JSON-LD](json-ld/runsignup-context.jsonld)
+- [Naftiko Capability](capabilities/race-event-management.yaml)
 
 ## Spectral Rules
 
