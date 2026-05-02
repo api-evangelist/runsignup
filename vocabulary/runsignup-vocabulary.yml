@@ -1,0 +1,156 @@
+name: RunSignup Race Registration Vocabulary
+description: >-
+  Core vocabulary, terminology, and domain concepts used in the RunSignup
+  race registration and event management platform. Covers race operations,
+  participant management, timing, results, and fundraising.
+created: '2026-05-02'
+modified: '2026-05-02'
+terms:
+
+  - term: Race
+    definition: >-
+      The top-level event entity in RunSignup. A race is the overall event
+      (e.g., the "2026 Golden Gate Half Marathon") that contains one or more
+      individual events with different distances or categories.
+    tags:
+      - Race
+      - Event
+
+  - term: Event
+    definition: >-
+      A specific distance or category within a race (e.g., "5K Run", "Half Marathon",
+      "Kids Fun Run"). Participants register for a specific event. Each event has
+      its own timing, age groups, and registration settings.
+    tags:
+      - Event
+      - Race
+
+  - term: Registration
+    definition: >-
+      The act of a participant enrolling in a race event. A registration record
+      includes participant details, the chosen event, payment information, and
+      assigns a unique registration_id used for bib assignment and results.
+    tags:
+      - Registration
+      - Participant
+
+  - term: Bib Number
+    definition: >-
+      A unique identifier printed on a numbered bib worn by a participant during
+      the race. Used for visual identification by photographers, spectators, and
+      finish line officials. Linked to a registration via bib_num field.
+    tags:
+      - Timing
+      - Participant
+      - Bib
+
+  - term: Chip Timing
+    definition: >-
+      A timing method using RFID chips attached to bibs or shoes that record
+      crossing times at timing mats. Enables accurate net time (from crossing
+      start line) separate from clock/gun time.
+    tags:
+      - Timing
+      - Results
+
+  - term: Clock Time
+    definition: >-
+      The elapsed time from the official start gun to when a participant crosses
+      the finish line. Also called "gun time". Used for overall placement.
+    tags:
+      - Timing
+      - Results
+
+  - term: Chip Time
+    definition: >-
+      Net time from when a participant crosses the start line to when they cross
+      the finish line. More accurate for large races with wave starts. Used for
+      personal records and some division placements.
+    tags:
+      - Timing
+      - Results
+
+  - term: Division
+    definition: >-
+      An age and/or gender category used to award division winners in addition
+      to overall winners. Example: "Male 30-34", "Female 50-54". Defined per event.
+    tags:
+      - Results
+      - Division
+
+  - term: Corral
+    definition: >-
+      A designated starting area or wave for participants. Used in large races to
+      manage crowding. Participants are assigned to corrals based on expected finish
+      time or qualification criteria.
+    tags:
+      - Race Operations
+      - Corral
+
+  - term: Wave Start
+    definition: >-
+      A race starting format where participants begin in groups (waves) at staggered
+      intervals, reducing congestion. Chip timing enables accurate net time regardless
+      of wave assignment.
+    tags:
+      - Race Operations
+      - Timing
+
+  - term: Result Set
+    definition: >-
+      A named collection of race results for an event (e.g., "Official", "Unofficial",
+      "Amateur Category"). A race event can have multiple result sets.
+    tags:
+      - Results
+
+  - term: Pace
+    definition: >-
+      The rate at which a participant completes a distance, typically expressed as
+      minutes per mile or minutes per kilometer. Calculated from chip or clock time.
+    tags:
+      - Results
+      - Timing
+
+  - term: Timer
+    definition: >-
+      A professional timing company or individual responsible for recording and
+      managing race timing data. Timers have specific API access roles in RunSignup
+      for managing bib assignments and posting results.
+    tags:
+      - Timing
+      - Role
+
+  - term: Race Director
+    definition: >-
+      The organizer responsible for managing a race event in RunSignup. Race directors
+      have full access to race configuration, participant management, results, and
+      financial reporting.
+    tags:
+      - Role
+      - Race Operations
+
+  - term: Partner
+    definition: >-
+      A third-party integration partner with API access to RunSignup data for
+      multiple races. Partners use permanent API keys and can access participant
+      and results data across races they are granted access to.
+    tags:
+      - API
+      - Role
+
+  - term: Fundraiser
+    definition: >-
+      A participant-driven fundraising campaign associated with a race registration.
+      Participants raise donations from supporters in addition to their race entry fee.
+    tags:
+      - Fundraising
+      - Charity
+
+  - term: Charity
+    definition: >-
+      A nonprofit organization associated with a race for donation campaigns.
+      Participants can donate to or fundraise for the charity as part of their
+      race registration.
+    tags:
+      - Fundraising
+      - Nonprofit

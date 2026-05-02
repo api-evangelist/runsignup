@@ -1,0 +1,293 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "RunSignup Race Event Management"
+  description: >-
+    Comprehensive race event management capability for RunSignup. Enables race directors,
+    timing companies, and integration partners to discover races, manage participant
+    registrations, retrieve bib/chip assignments, submit and retrieve race results,
+    manage divisions and teams, and access fundraising data. Covers the full lifecycle
+    from race discovery through results publication.
+  tags:
+    - RunSignup
+    - Race Registration
+    - Event Management
+    - Running
+    - Sports
+    - Timing
+    - Results
+    - Fundraising
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RUNSIGNUP_API_KEY: RUNSIGNUP_API_KEY
+      RUNSIGNUP_API_SECRET: RUNSIGNUP_API_SECRET
+
+capability:
+  consumes:
+    - import: runsignup
+      location: ./shared/runsignup-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: race-event-api
+      description: "Unified REST API for RunSignup race event management."
+      resources:
+        - path: /v1/races
+          name: races
+          description: "Race discovery and search"
+          operations:
+            - method: GET
+              name: get-races
+              description: "Search and list upcoming races"
+              call: "runsignup.get-races"
+              with:
+                search_term: "rest.search_term"
+                state: "rest.state"
+                results_per_page: "rest.results_per_page"
+                events: "rest.events"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}
+          name: race
+          description: "Individual race details"
+          operations:
+            - method: GET
+              name: get-race
+              description: "Get full race information including events"
+              call: "runsignup.get-race"
+              with:
+                race_id: "rest.race_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}/participants
+          name: participants
+          description: "Participant registration management"
+          operations:
+            - method: GET
+              name: get-participants
+              description: "List registered participants"
+              call: "runsignup.get-participants"
+              with:
+                race_id: "rest.race_id"
+                event_id: "rest.event_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}/bib-chip
+          name: bib-chip
+          description: "Bib and chip assignment data"
+          operations:
+            - method: GET
+              name: get-bib-chip
+              description: "Get bib number and chip assignments"
+              call: "runsignup.get-bib-chip"
+              with:
+                race_id: "rest.race_id"
+                event_id: "rest.event_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}/results
+          name: results
+          description: "Race results retrieval and submission"
+          operations:
+            - method: GET
+              name: get-results
+              description: "Get race results"
+              call: "runsignup.get-results"
+              with:
+                race_id: "rest.race_id"
+                event_id: "rest.event_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: post-results
+              description: "Submit race results"
+              call: "runsignup.post-full-results"
+              with:
+                race_id: "rest.race_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}/divisions
+          name: divisions
+          description: "Age and gender division management"
+          operations:
+            - method: GET
+              name: get-divisions
+              description: "Get race divisions"
+              call: "runsignup.get-divisions"
+              with:
+                race_id: "rest.race_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}/teams
+          name: teams
+          description: "Team registration management"
+          operations:
+            - method: GET
+              name: get-teams
+              description: "Get registered teams"
+              call: "runsignup.get-teams"
+              with:
+                race_id: "rest.race_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/races/{race_id}/donations
+          name: donations
+          description: "Fundraising and donation data"
+          operations:
+            - method: GET
+              name: get-donations
+              description: "Get race donations"
+              call: "runsignup.get-donations"
+              with:
+                race_id: "rest.race_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: race-event-mcp
+      transport: http
+      description: "MCP server for AI-assisted race event management and results processing."
+      tools:
+        # Race Discovery
+        - name: search-races
+          description: "Search and discover upcoming races on RunSignup by name, location, or state"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "runsignup.get-races"
+          with:
+            search_term: "tools.search_term"
+            state: "tools.state"
+            results_per_page: "tools.results_per_page"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-race-details
+          description: "Get comprehensive details about a specific race including all events, registration status, and settings"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "runsignup.get-race"
+          with:
+            race_id: "tools.race_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Participant Management
+        - name: get-race-participants
+          description: "Retrieve registered participants for a race, optionally filtered by event"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "runsignup.get-participants"
+          with:
+            race_id: "tools.race_id"
+            event_id: "tools.event_id"
+            results_per_page: "tools.results_per_page"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Timing Operations
+        - name: get-bib-chip-assignments
+          description: "Get bib number and RFID chip assignments for timing operations"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "runsignup.get-bib-chip"
+          with:
+            race_id: "tools.race_id"
+            event_id: "tools.event_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Results Management
+        - name: get-race-results
+          description: "Retrieve official race results including finish times and placements"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "runsignup.get-results"
+          with:
+            race_id: "tools.race_id"
+            event_id: "tools.event_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: submit-race-results
+          description: "Submit official race results with finish times and placements for participants"
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "runsignup.post-full-results"
+          with:
+            race_id: "tools.race_id"
+            event_id: "tools.event_id"
+            results: "tools.results"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Category Management
+        - name: get-race-divisions
+          description: "Get age and gender divisions configured for race results scoring"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "runsignup.get-divisions"
+          with:
+            race_id: "tools.race_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-race-teams
+          description: "Get teams registered for a race event"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "runsignup.get-teams"
+          with:
+            race_id: "tools.race_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Fundraising
+        - name: get-race-donations
+          description: "Get donation and fundraising data for a race"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "runsignup.get-donations"
+          with:
+            race_id: "tools.race_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

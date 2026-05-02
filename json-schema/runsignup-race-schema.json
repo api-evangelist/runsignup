@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://runsignup.com/schemas/runsignup/race.json",
+  "title": "RunSignup Race",
+  "description": "Represents a race or endurance event on the RunSignup platform. A race is the top-level container that holds one or more events (e.g., 5K, 10K, Half Marathon). The race object includes general information, location, registration settings, and links to events.",
+  "type": "object",
+  "required": ["race_id", "name"],
+  "properties": {
+    "race_id": {
+      "type": "integer",
+      "description": "Unique race identifier assigned by RunSignup.",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the race.",
+      "minLength": 1
+    },
+    "next_date": {
+      "type": "string",
+      "description": "The date of the next upcoming event in MM/DD/YYYY format."
+    },
+    "next_end_date": {
+      "type": "string",
+      "description": "The end date of the next upcoming event in MM/DD/YYYY format."
+    },
+    "is_draft_race": {
+      "type": "string",
+      "description": "Whether this race is in draft mode (not published).",
+      "enum": ["T", "F"]
+    },
+    "is_private_race": {
+      "type": "string",
+      "description": "Whether this race is private (invitation only).",
+      "enum": ["T", "F"]
+    },
+    "is_registration_open": {
+      "type": "string",
+      "description": "Whether registration is currently open.",
+      "enum": ["T", "F"]
+    },
+    "created": {
+      "type": "string",
+      "description": "Date the race was created in the system."
+    },
+    "last_modified": {
+      "type": "string",
+      "description": "Date the race was last modified."
+    },
+    "city": {
+      "type": "string",
+      "description": "City where the race is held."
+    },
+    "state": {
+      "type": "string",
+      "description": "US state abbreviation where the race is held."
+    },
+    "country_code": {
+      "type": "string",
+      "description": "ISO country code for the race location.",
+      "pattern": "^[A-Z]{2,3}$"
+    },
+    "zip": {
+      "type": "string",
+      "description": "Postal code for the race location."
+    },
+    "description": {
+      "type": "string",
+      "description": "HTML or plain text description of the race."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "RunSignup registration page URL for the race."
+    },
+    "external_race_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "External race website URL provided by the race director."
+    },
+    "logo_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the race logo image."
+    },
+    "charity_id": {
+      "type": "integer",
+      "description": "ID of the charity associated with this race for fundraising."
+    },
+    "events": {
+      "type": "array",
+      "description": "List of events within this race (e.g., 5K, 10K, Half Marathon).",
+      "items": {
+        "$ref": "#/$defs/Event"
+      }
+    }
+  },
+  "$defs": {
+    "Event": {
+      "type": "object",
+      "description": "A specific event distance or category within a race. Participants register for a specific event.",
+      "required": ["event_id", "name"],
+      "properties": {
+        "event_id": {
+          "type": "integer",
+          "description": "Unique event identifier within the race."
+        },
+        "name": {
+          "type": "string",
+          "description": "Event name (e.g., '5K Run', '10K Walk', 'Half Marathon')."
+        },
+        "start_time": {
+          "type": "string",
+          "description": "Event start time in the race's local timezone."
+        },
+        "end_time": {
+          "type": "string",
+          "description": "Event end time."
+        },
+        "distance": {
+          "type": "number",
+          "description": "Event distance value.",
+          "minimum": 0
+        },
+        "distance_unit": {
+          "type": "string",
+          "description": "Unit for the distance value.",
+          "enum": ["K", "M", "Miles"]
+        },
+        "max_participants": {
+          "type": "integer",
+          "description": "Maximum number of participants allowed. Null means unlimited.",
+          "minimum": 0
+        },
+        "registration_opens": {
+          "type": "string",
+          "description": "Date/time when registration opens for this event."
+        },
+        "registration_closes": {
+          "type": "string",
+          "description": "Date/time when registration closes for this event."
+        },
+        "age_min": {
+          "type": "integer",
+          "description": "Minimum age requirement.",
+          "minimum": 0
+        },
+        "age_max": {
+          "type": "integer",
+          "description": "Maximum age requirement.",
+          "minimum": 0
+        }
+      }
+    },
+    "Participant": {
+      "type": "object",
+      "description": "A registered participant in a race event.",
+      "required": ["registration_id"],
+      "properties": {
+        "registration_id": {
+          "type": "integer",
+          "description": "Unique registration identifier."
+        },
+        "user_id": {
+          "type": "integer",
+          "description": "RunSignup user account ID."
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "dob": {
+          "type": "string",
+          "description": "Date of birth in MM/DD/YYYY format."
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["M", "F", "X"]
+        },
+        "bib_num": {
+          "type": "string",
+          "description": "Assigned bib number."
+        },
+        "chip_num": {
+          "type": "string",
+          "description": "Assigned RFID chip number."
+        },
+        "event_id": {
+          "type": "integer"
+        },
+        "event_name": {
+          "type": "string"
+        },
+        "race_id": {
+          "type": "integer"
+        },
+        "registration_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Result": {
+      "type": "object",
+      "description": "A race result entry for a participant including place and finish time.",
+      "required": ["registration_id"],
+      "properties": {
+        "result_id": {
+          "type": "integer"
+        },
+        "registration_id": {
+          "type": "integer",
+          "description": "Links this result to the participant's registration."
+        },
+        "bib_num": {
+          "type": "string"
+        },
+        "clock_time": {
+          "type": "string",
+          "description": "Gun time from start (HH:MM:SS.ms format)."
+        },
+        "chip_time": {
+          "type": "string",
+          "description": "Net chip time from crossing start line (HH:MM:SS.ms format)."
+        },
+        "place_overall": {
+          "type": "integer",
+          "description": "Overall finish place across all genders and ages.",
+          "minimum": 1
+        },
+        "place_gender": {
+          "type": "integer",
+          "description": "Finish place within the participant's gender category.",
+          "minimum": 1
+        },
+        "place_division": {
+          "type": "integer",
+          "description": "Finish place within the participant's age/gender division.",
+          "minimum": 1
+        },
+        "pace": {
+          "type": "string",
+          "description": "Pace per mile or kilometer (MM:SS format)."
+        }
+      }
+    }
+  }
+}

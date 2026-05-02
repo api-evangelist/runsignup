@@ -1,0 +1,139 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "runsignup": "https://runsignup.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "sport": "https://schema.org/SportsEvent",
+
+    "Race": {
+      "@id": "schema:SportsEvent",
+      "@context": {
+        "race_id": "schema:identifier",
+        "name": "schema:name",
+        "description": "schema:description",
+        "city": {
+          "@id": "schema:location",
+          "@type": "schema:Place"
+        },
+        "state": "runsignup:stateCode",
+        "country_code": "runsignup:countryCode",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "external_race_url": {
+          "@id": "schema:sameAs",
+          "@type": "@id"
+        },
+        "logo_url": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "next_date": {
+          "@id": "schema:startDate",
+          "@type": "xsd:date"
+        },
+        "is_registration_open": "runsignup:registrationOpen",
+        "events": "schema:subEvent"
+      }
+    },
+
+    "Event": {
+      "@id": "schema:SportsEvent",
+      "@context": {
+        "event_id": "schema:identifier",
+        "name": "schema:name",
+        "start_time": {
+          "@id": "schema:startTime",
+          "@type": "xsd:dateTime"
+        },
+        "distance": "schema:distance",
+        "distance_unit": "runsignup:distanceUnit",
+        "max_participants": "runsignup:maximumAttendeeCapacity",
+        "registration_opens": {
+          "@id": "runsignup:registrationOpens",
+          "@type": "xsd:dateTime"
+        },
+        "registration_closes": {
+          "@id": "runsignup:registrationCloses",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Participant": {
+      "@id": "schema:Person",
+      "@context": {
+        "registration_id": "schema:identifier",
+        "user_id": "runsignup:userId",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "email": "schema:email",
+        "dob": {
+          "@id": "schema:birthDate",
+          "@type": "xsd:date"
+        },
+        "gender": "schema:gender",
+        "bib_num": "runsignup:bibNumber",
+        "chip_num": "runsignup:chipNumber",
+        "registration_date": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Result": {
+      "@id": "runsignup:RaceResult",
+      "@context": {
+        "result_id": "schema:identifier",
+        "registration_id": "runsignup:registration",
+        "bib_num": "runsignup:bibNumber",
+        "clock_time": "runsignup:clockTime",
+        "chip_time": "runsignup:chipTime",
+        "place_overall": "runsignup:overallPlace",
+        "place_gender": "runsignup:genderPlace",
+        "place_division": "runsignup:divisionPlace",
+        "pace": "runsignup:pace"
+      }
+    },
+
+    "Team": {
+      "@id": "schema:SportsTeam",
+      "@context": {
+        "team_id": "schema:identifier",
+        "name": "schema:name",
+        "member_count": "runsignup:memberCount",
+        "captain_user_id": "schema:member"
+      }
+    },
+
+    "Division": {
+      "@id": "runsignup:RaceDivision",
+      "@context": {
+        "division_id": "schema:identifier",
+        "name": "schema:name",
+        "gender": "schema:gender",
+        "age_min": "runsignup:minimumAge",
+        "age_max": "runsignup:maximumAge"
+      }
+    },
+
+    "Donation": {
+      "@id": "schema:MonetaryGrant",
+      "@context": {
+        "donation_id": "schema:identifier",
+        "amount": {
+          "@id": "schema:amount",
+          "@type": "schema:MonetaryAmount"
+        },
+        "donation_date": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

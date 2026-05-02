@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://runsignup.com/Rest/race/12345/results/full-results",
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "api_key": "YOUR_API_KEY",
+      "api_secret": "YOUR_API_SECRET",
+      "event_id": 67890,
+      "result_set_name": "Official",
+      "results": [
+        {
+          "registration_id": 111222,
+          "bib_num": "101",
+          "place": 1,
+          "clock_time": "01:23:45.00",
+          "chip_time": "01:23:42.50"
+        },
+        {
+          "registration_id": 111223,
+          "bib_num": "202",
+          "place": 2,
+          "clock_time": "01:24:12.00",
+          "chip_time": "01:24:09.75"
+        },
+        {
+          "registration_id": 111224,
+          "bib_num": "305",
+          "place": 3,
+          "clock_time": "01:25:33.00",
+          "chip_time": "01:25:30.25"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "results_submitted": 3,
+      "errors": 0,
+      "error_details": []
+    }
+  }
+}

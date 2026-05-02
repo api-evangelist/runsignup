@@ -1,0 +1,154 @@
+{
+  "name": "RunSignup Race",
+  "description": "Structure of a RunSignup race event and its registration model",
+  "fields": [
+    {
+      "name": "race_id",
+      "type": "integer",
+      "required": true,
+      "description": "Unique race identifier"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Race name"
+    },
+    {
+      "name": "next_date",
+      "type": "string (MM/DD/YYYY)",
+      "required": false,
+      "description": "Next upcoming event date"
+    },
+    {
+      "name": "is_draft_race",
+      "type": "string (T/F)",
+      "required": false,
+      "description": "Whether race is unpublished"
+    },
+    {
+      "name": "is_private_race",
+      "type": "string (T/F)",
+      "required": false,
+      "description": "Whether registration is invitation only"
+    },
+    {
+      "name": "is_registration_open",
+      "type": "string (T/F)",
+      "required": false,
+      "description": "Whether registration is currently accepting"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "required": false,
+      "description": "Race location city"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "US state abbreviation"
+    },
+    {
+      "name": "country_code",
+      "type": "string",
+      "required": false,
+      "description": "ISO country code"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Race description (may include HTML)"
+    },
+    {
+      "name": "url",
+      "type": "string (URI)",
+      "required": false,
+      "description": "RunSignup registration page URL"
+    },
+    {
+      "name": "logo_url",
+      "type": "string (URI)",
+      "required": false,
+      "description": "Race logo image URL"
+    },
+    {
+      "name": "events",
+      "type": "array of Event",
+      "required": false,
+      "description": "Event distances within the race",
+      "nested": [
+        {
+          "name": "event_id",
+          "type": "integer",
+          "required": true,
+          "description": "Unique event ID"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Event name (e.g., '5K Run')"
+        },
+        {
+          "name": "start_time",
+          "type": "string",
+          "required": false,
+          "description": "Start time in local timezone"
+        },
+        {
+          "name": "distance",
+          "type": "number",
+          "required": false,
+          "description": "Event distance value"
+        },
+        {
+          "name": "distance_unit",
+          "type": "string (K|M|Miles)",
+          "required": false,
+          "description": "Unit for distance"
+        },
+        {
+          "name": "max_participants",
+          "type": "integer",
+          "required": false,
+          "description": "Registration cap (null = unlimited)"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "name": "has_events",
+      "target": "Event",
+      "cardinality": "one-to-many",
+      "description": "A race has one or more distance events"
+    },
+    {
+      "name": "has_participants",
+      "target": "Participant",
+      "cardinality": "one-to-many",
+      "description": "A race has many registered participants (via events)"
+    },
+    {
+      "name": "has_results",
+      "target": "Result",
+      "cardinality": "one-to-many",
+      "description": "A race has results per participant per event"
+    },
+    {
+      "name": "has_teams",
+      "target": "Team",
+      "cardinality": "one-to-many",
+      "description": "A race can have team registrations"
+    },
+    {
+      "name": "has_divisions",
+      "target": "Division",
+      "cardinality": "one-to-many",
+      "description": "A race has age/gender divisions for results scoring"
+    }
+  ]
+}

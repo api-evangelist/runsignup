@@ -1,0 +1,73 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://runsignup.com/Rest/races?format=json&results_per_page=5&state=CA&events=T",
+    "headers": {
+      "Accept": "application/json"
+    },
+    "query_params": {
+      "api_key": "YOUR_API_KEY",
+      "api_secret": "YOUR_API_SECRET",
+      "format": "json",
+      "results_per_page": 5,
+      "state": "CA",
+      "events": "T"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "races": [
+        {
+          "race": {
+            "race_id": 12345,
+            "name": "Golden Gate Half Marathon",
+            "next_date": "06/15/2026",
+            "next_end_date": "06/15/2026",
+            "is_draft_race": "F",
+            "is_private_race": "F",
+            "is_registration_open": "T",
+            "created": "01/15/2026",
+            "last_modified": "04/20/2026",
+            "city": "San Francisco",
+            "state": "CA",
+            "country_code": "US",
+            "zip": "94129",
+            "description": "The iconic Golden Gate Half Marathon across the Golden Gate Bridge and through the Presidio.",
+            "url": "https://runsignup.com/Race/CA/SanFrancisco/GoldenGateHalfMarathon",
+            "logo_url": "https://runsignup.com/img/logos/golden-gate-half.jpg",
+            "events": [
+              {
+                "event_id": 67890,
+                "name": "Half Marathon",
+                "start_time": "07:00 AM",
+                "distance": 13.1,
+                "distance_unit": "Miles",
+                "max_participants": 2500,
+                "registration_opens": "01/15/2026",
+                "registration_closes": "06/14/2026",
+                "age_min": 16
+              },
+              {
+                "event_id": 67891,
+                "name": "5K Fun Run",
+                "start_time": "09:00 AM",
+                "distance": 5,
+                "distance_unit": "K",
+                "max_participants": 1000,
+                "registration_opens": "01/15/2026",
+                "registration_closes": "06/14/2026",
+                "age_min": 0
+              }
+            ]
+          }
+        }
+      ],
+      "total_results": 147,
+      "num_results": 1
+    }
+  }
+}

@@ -1,0 +1,1350 @@
+openapi: 3.1.0
+info:
+  title: RunSignup API
+  description: >-
+    The RunSignup REST API provides access to race and event management operations
+    for the RunSignup platform. It enables race directors, timing companies, affiliates,
+    and technology partners to integrate race registration, participant management,
+    results posting, bib and chip assignment, division management, team management,
+    fundraising, volunteer management, and user account management. The API covers
+    100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred)
+    or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest
+    and responses are available in JSON or XML format.
+  version: '1.0'
+  contact:
+    name: RunSignup Support
+    url: https://runsignup.com/support
+  termsOfService: https://runsignup.com/terms
+externalDocs:
+  description: RunSignup API Documentation
+  url: https://runsignup.com/API
+servers:
+  - url: https://runsignup.com/Rest
+    description: RunSignup REST API
+security:
+  - OAuth2: []
+  - apiKeyAuth: []
+tags:
+  - name: Races
+    description: >-
+      List, search, and retrieve race and event information including details,
+      events, schedules, and registration settings.
+  - name: Participants
+    description: >-
+      Manage race participants including registration, editing, deletion,
+      bib/chip assignment, and participant data retrieval.
+  - name: Results
+    description: >-
+      Submit, import, and retrieve race results including finishing times,
+      result sets, and full results with place and time data.
+  - name: Divisions
+    description: >-
+      Manage age group and category divisions for accurate results processing.
+  - name: Corrals
+    description: >-
+      Manage participant corrals for wave start events.
+  - name: Teams
+    description: >-
+      Manage teams and groups for team-based race events.
+  - name: Donations
+    description: >-
+      Retrieve donation and fundraising data associated with race registrations.
+  - name: Volunteers
+    description: >-
+      Manage volunteer signups and data for race events.
+  - name: Users
+    description: >-
+      Manage user accounts and authentication for the RunSignup platform.
+  - name: Reference
+    description: >-
+      Reference data such as countries and states used across the API.
+paths:
+  /races:
+    get:
+      operationId: getRaces
+      summary: Get Races
+      description: >-
+        Returns a list of upcoming races with event information. Event start and end times
+        are in the timezone of the race. Results are paginated with a maximum of 1,000 races
+        per page.
+      tags:
+        - Races
+      parameters:
+        - name: format
+          in: query
+          description: Response format
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 1
+        - name: results_per_page
+          in: query
+          description: Number of results per page (max 1000)
+          schema:
+            type: integer
+            default: 25
+            maximum: 1000
+        - name: search_term
+          in: query
+          description: Search term to filter races by name
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: Filter races starting on or after this date (MM/DD/YYYY)
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          description: Filter races starting on or before this date (MM/DD/YYYY)
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: Filter races by US state abbreviation
+          schema:
+            type: string
+        - name: country_code
+          in: query
+          description: Filter races by country code
+          schema:
+            type: string
+        - name: events
+          in: query
+          description: Include event details in response (T/F)
+          schema:
+            type: string
+            enum:
+              - T
+              - F
+            default: F
+      responses:
+        '200':
+          description: List of races
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}:
+    get:
+      operationId: getRace
+      summary: Get Race
+      description: >-
+        Returns detailed information about a specific race including all events,
+        registration settings, pricing, and configuration.
+      tags:
+        - Races
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+        - name: events
+          in: query
+          description: Include event details
+          schema:
+            type: string
+            enum:
+              - T
+              - F
+            default: T
+      responses:
+        '200':
+          description: Race details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /race/{race_id}/participants:
+    get:
+      operationId: getRaceParticipants
+      summary: Get Race Participants
+      description: >-
+        Returns a list of registered participants for the specified race. Can be filtered
+        by event, registration status, and other criteria. Includes registration ID, name,
+        contact info, bib, chip, and custom question responses.
+      tags:
+        - Participants
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+        - name: event_id
+          in: query
+          description: Filter by specific event ID within the race
+          schema:
+            type: integer
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: results_per_page
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: include_transfers
+          in: query
+          description: Include transferred registrations (T/F)
+          schema:
+            type: string
+            enum:
+              - T
+              - F
+            default: F
+        - name: since_datetime
+          in: query
+          description: Only return registrations created or modified after this datetime
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of race participants
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addOrEditParticipants
+      summary: Add or Edit Race Participants
+      description: >-
+        Adds new participants or edits existing participant registrations for a race.
+        Used by timing companies and race management systems to sync registration data.
+      tags:
+        - Participants
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParticipantUpdateRequest'
+      responses:
+        '200':
+          description: Participants added or updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/delete-participants:
+    post:
+      operationId: deleteParticipants
+      summary: Delete Race Participants
+      description: >-
+        Removes specified participant registrations from a race. Requires race director
+        or admin access.
+      tags:
+        - Participants
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                registration_ids:
+                  type: array
+                  items:
+                    type: integer
+                  description: List of registration IDs to delete
+      responses:
+        '200':
+          description: Participants deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted_count:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/get-bib-chip:
+    get:
+      operationId: getBibChipAssignments
+      summary: Get Bib and Chip Assignments
+      description: >-
+        Returns bib number and chip/RFID tag assignments for participants in a race event.
+        Used by timing companies to retrieve tag-to-bib mappings.
+      tags:
+        - Participants
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: event_id
+          in: query
+          description: The specific event ID to get assignments for
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bib and chip assignment data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibChipResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /race/{race_id}/results/get-results:
+    get:
+      operationId: getRaceResults
+      summary: Get Race Results
+      description: >-
+        Returns all results across all result sets for a race. Includes placing, finish
+        time, chip time, and division results for each participant.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: event_id
+          in: query
+          description: Filter by specific event ID
+          schema:
+            type: integer
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+      responses:
+        '200':
+          description: Race results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /race/{race_id}/results/full-results:
+    post:
+      operationId: postRaceResults
+      summary: Post Full Race Results
+      description: >-
+        Submits complete race results for an event. Each result includes registration ID,
+        place, clock time, and optionally chip time. This is the primary endpoint used by
+        timing systems to upload results.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FullResultsRequest'
+      responses:
+        '200':
+          description: Results posted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultsPostResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/results/finishing-times:
+    post:
+      operationId: postFinishingTimes
+      summary: Post Finishing Times
+      description: >-
+        Posts finishing time data for participants in an event. Designed for real-time
+        results updates from timing systems during or after a race.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinishingTimesRequest'
+      responses:
+        '200':
+          description: Finishing times posted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultsPostResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/results/start-time:
+    post:
+      operationId: setRaceStartTime
+      summary: Set Race Start Time
+      description: >-
+        Sets the official start time for a race event. Used by timing systems to
+        record the gun time or wave start time.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event_id
+                - start_time
+              properties:
+                event_id:
+                  type: integer
+                  description: The event to set start time for
+                start_time:
+                  type: string
+                  description: Start time in format HH:MM:SS.ms
+      responses:
+        '200':
+          description: Start time set
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/results/clear-results:
+    post:
+      operationId: clearRaceResults
+      summary: Clear Race Results
+      description: >-
+        Removes all results for a specified result set. Use with caution as this
+        operation cannot be undone.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                result_set_id:
+                  type: integer
+                event_id:
+                  type: integer
+      responses:
+        '200':
+          description: Results cleared
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/results/csv-import:
+    post:
+      operationId: importResultsFromCsv
+      summary: Import Results from CSV
+      description: >-
+        Imports race results from a CSV file upload. The CSV must include at minimum
+        bib number and finish time columns.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: CSV file with results data
+                event_id:
+                  type: integer
+      responses:
+        '200':
+          description: Results imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultsPostResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/divisions/divisions:
+    get:
+      operationId: getRaceDivisions
+      summary: Get Race Divisions
+      description: >-
+        Returns all age group and category divisions configured for a race event.
+        Divisions are used to assign places within specific competitor categories.
+      tags:
+        - Divisions
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: event_id
+          in: query
+          description: Filter by specific event ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Race divisions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /race/{race_id}/corrals:
+    get:
+      operationId: getRaceCorrals
+      summary: Get Race Corrals
+      description: >-
+        Returns corral configuration for a race event, including corral names and
+        participant assignments for wave-start events.
+      tags:
+        - Corrals
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: event_id
+          in: query
+          description: Filter by specific event ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Race corrals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorralsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /race/{race_id}/teams:
+    get:
+      operationId: getRaceTeams
+      summary: Get Race Teams
+      description: >-
+        Returns teams and groups registered for a race event. Includes team names,
+        members, and team scores where applicable.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: event_id
+          in: query
+          schema:
+            type: integer
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: Race teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addOrEditTeams
+      summary: Add or Edit Race Teams
+      description: >-
+        Creates new teams or updates existing team records for a race.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsUpdateRequest'
+      responses:
+        '200':
+          description: Teams updated
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}/donations/list:
+    get:
+      operationId: getRaceDonations
+      summary: Get Race Donations
+      description: >-
+        Returns a list of donations made in association with race registrations.
+        Includes donor information, amount, and associated fundraiser.
+      tags:
+        - Donations
+      parameters:
+        - $ref: '#/components/parameters/RaceId'
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: results_per_page
+          in: query
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: List of donations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DonationsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /users:
+    get:
+      operationId: getUsers
+      summary: Get Partner Users
+      description: >-
+        Returns a list of users associated with a partner account.
+      tags:
+        - Users
+      parameters:
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{user_id}:
+    get:
+      operationId: getUser
+      summary: Get User
+      description: >-
+        Returns detailed profile information for a specific user account.
+      tags:
+        - Users
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The unique user ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /user:
+    post:
+      operationId: createUser
+      summary: Create User Account
+      description: >-
+        Creates a new RunSignup user account.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /countries:
+    get:
+      operationId: getCountries
+      summary: Get Countries and States
+      description: >-
+        Returns a list of all countries with their state/province subdivisions.
+        Used as reference data for address fields in registration forms.
+      tags:
+        - Reference
+      parameters:
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+      responses:
+        '200':
+          description: Countries and states reference data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountriesResponse'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authentication (preferred)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://runsignup.com/OAuth/Authorize
+          tokenUrl: https://runsignup.com/OAuth/Token
+          scopes:
+            read: Read access to race and participant data
+            write: Write access to race and participant data
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: >-
+        Permanent API key for affiliates, partners, and timers. Pass api_key and
+        api_secret as query parameters.
+  parameters:
+    RaceId:
+      name: race_id
+      in: path
+      required: true
+      description: The unique ID of the race
+      schema:
+        type: integer
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Race:
+      type: object
+      properties:
+        race_id:
+          type: integer
+          description: Unique race identifier
+        name:
+          type: string
+          description: Race name
+        next_date:
+          type: string
+          description: Next upcoming event date
+        next_end_date:
+          type: string
+          description: Next event end date
+        is_draft_race:
+          type: string
+          enum:
+            - T
+            - F
+        is_private_race:
+          type: string
+          enum:
+            - T
+            - F
+        is_registration_open:
+          type: string
+          enum:
+            - T
+            - F
+        created:
+          type: string
+        last_modified:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country_code:
+          type: string
+        zip:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+        external_race_url:
+          type: string
+          format: uri
+        charity_id:
+          type: integer
+        logo_url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        event_id:
+          type: integer
+          description: Unique event ID within the race
+        name:
+          type: string
+          description: Event name (e.g., "5K Run", "Half Marathon")
+        start_time:
+          type: string
+          description: Event start time in race's local timezone
+        end_time:
+          type: string
+        distance:
+          type: number
+          description: Event distance
+        distance_unit:
+          type: string
+          enum:
+            - K
+            - M
+            - Miles
+        max_participants:
+          type: integer
+        registration_opens:
+          type: string
+        registration_closes:
+          type: string
+        age_min:
+          type: integer
+        age_max:
+          type: integer
+    Participant:
+      type: object
+      properties:
+        registration_id:
+          type: integer
+          description: Unique registration identifier
+        user_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: string
+          description: Date of birth (MM/DD/YYYY)
+        gender:
+          type: string
+          enum:
+            - M
+            - F
+            - X
+        address:
+          $ref: '#/components/schemas/Address'
+        bib_num:
+          type: string
+          description: Assigned bib number
+        chip_num:
+          type: string
+          description: Assigned chip/RFID number
+        event_id:
+          type: integer
+        event_name:
+          type: string
+        race_id:
+          type: integer
+        team_id:
+          type: integer
+        team_name:
+          type: string
+        registration_date:
+          type: string
+          format: date-time
+        last_modified:
+          type: string
+          format: date-time
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        country_code:
+          type: string
+    BibChipAssignment:
+      type: object
+      properties:
+        registration_id:
+          type: integer
+        bib_num:
+          type: string
+        chip_num:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        event_id:
+          type: integer
+    Result:
+      type: object
+      properties:
+        result_id:
+          type: integer
+        registration_id:
+          type: integer
+        bib_num:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        clock_time:
+          type: string
+          description: Clock time from gun start (HH:MM:SS.ms)
+        chip_time:
+          type: string
+          description: Net chip time (HH:MM:SS.ms)
+        place_overall:
+          type: integer
+        place_gender:
+          type: integer
+        place_division:
+          type: integer
+        gender:
+          type: string
+        age:
+          type: integer
+        event_id:
+          type: integer
+        pace:
+          type: string
+    Division:
+      type: object
+      properties:
+        division_id:
+          type: integer
+        name:
+          type: string
+          description: Division name (e.g., "Male 30-34")
+        gender:
+          type: string
+          enum:
+            - M
+            - F
+            - X
+        age_min:
+          type: integer
+        age_max:
+          type: integer
+        event_id:
+          type: integer
+    Corral:
+      type: object
+      properties:
+        corral_id:
+          type: integer
+        name:
+          type: string
+          description: Corral name (e.g., "A", "Elite")
+        start_time:
+          type: string
+        event_id:
+          type: integer
+        participant_count:
+          type: integer
+    Team:
+      type: object
+      properties:
+        team_id:
+          type: integer
+        name:
+          type: string
+          description: Team name
+        member_count:
+          type: integer
+        event_id:
+          type: integer
+        captain_user_id:
+          type: integer
+    Donation:
+      type: object
+      properties:
+        donation_id:
+          type: integer
+        user_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        amount:
+          type: number
+          format: float
+          description: Donation amount in USD
+        charity_id:
+          type: integer
+        fundraiser_id:
+          type: integer
+        donation_date:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: string
+        gender:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        created:
+          type: string
+          format: date-time
+        last_modified:
+          type: string
+          format: date-time
+    RaceListResponse:
+      type: object
+      properties:
+        races:
+          type: array
+          items:
+            type: object
+            properties:
+              race:
+                $ref: '#/components/schemas/Race'
+        total_results:
+          type: integer
+        num_results:
+          type: integer
+    RaceResponse:
+      type: object
+      properties:
+        race:
+          $ref: '#/components/schemas/Race'
+    ParticipantListResponse:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/Participant'
+        total_results:
+          type: integer
+        num_results:
+          type: integer
+    ParticipantUpdateRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+    ParticipantUpdateResponse:
+      type: object
+      properties:
+        added:
+          type: integer
+        updated:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              registration_id:
+                type: integer
+              message:
+                type: string
+    BibChipResponse:
+      type: object
+      properties:
+        bib_chip_assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibChipAssignment'
+    ResultsResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        total_results:
+          type: integer
+    FullResultsRequest:
+      type: object
+      required:
+        - event_id
+        - results
+      properties:
+        event_id:
+          type: integer
+          description: The event to post results for
+        result_set_name:
+          type: string
+          description: Name for this result set (defaults to "Official")
+        results:
+          type: array
+          items:
+            type: object
+            required:
+              - registration_id
+              - place
+              - clock_time
+            properties:
+              registration_id:
+                type: integer
+              bib_num:
+                type: string
+              place:
+                type: integer
+                description: Overall finish place
+              clock_time:
+                type: string
+                description: Gun/clock time (HH:MM:SS.ms)
+              chip_time:
+                type: string
+                description: Net chip time (HH:MM:SS.ms)
+    FinishingTimesRequest:
+      type: object
+      required:
+        - event_id
+        - times
+      properties:
+        event_id:
+          type: integer
+        times:
+          type: array
+          items:
+            type: object
+            properties:
+              chip_num:
+                type: string
+              bib_num:
+                type: string
+              finish_time:
+                type: string
+    ResultsPostResponse:
+      type: object
+      properties:
+        results_submitted:
+          type: integer
+        errors:
+          type: integer
+        error_details:
+          type: array
+          items:
+            type: object
+            properties:
+              registration_id:
+                type: integer
+              message:
+                type: string
+    DivisionsResponse:
+      type: object
+      properties:
+        divisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Division'
+    CorralsResponse:
+      type: object
+      properties:
+        corrals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Corral'
+    TeamsResponse:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+        total_results:
+          type: integer
+    TeamsUpdateRequest:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    DonationsResponse:
+      type: object
+      properties:
+        donations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Donation'
+        total_results:
+          type: integer
+    UsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    UserResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    CreateUserRequest:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: string
+          description: Date of birth (MM/DD/YYYY)
+        gender:
+          type: string
+          enum:
+            - M
+            - F
+            - X
+        address:
+          $ref: '#/components/schemas/Address'
+    CountriesResponse:
+      type: object
+      properties:
+        countries:
+          type: array
+          items:
+            type: object
+            properties:
+              country_code:
+                type: string
+              name:
+                type: string
+              states:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    state_code:
+                      type: string
+                    name:
+                      type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
