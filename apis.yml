@@ -53,11 +53,11 @@ apis:
         url: https://runsignup.com/API/DocOverview
       - type: OpenAPI
         url: openapi/runsignup-openapi.yml
-      - type: Getting Started
+      - type: GettingStarted
         url: https://runsignup.com/API/GettingStarted
       - type: Authentication
         url: https://runsignup.com/API/GettingStarted
-      - type: GitHub Repository
+      - type: GitHubRepository
         url: https://github.com/RunSignUp-Team/OpenSource
       - type: Spectral Rules
         url: rules/runsignup-rules.yml
@@ -76,9 +76,9 @@ common:
     url: https://runsignup.com
   - type: Documentation
     url: https://runsignup.com/API
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/RunSignUp-Team
-  - type: GitHub Repository
+  - type: GitHubRepository
     url: https://github.com/RunSignUp-Team/OpenSource
   - type: Blog
     url: https://runsignup.blog
