@@ -1,0 +1,173 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RunSignup API — Races
+  description: 'RunSignup API — Races. 2 operations. Lead operation: Get Race. Self-contained Naftiko capability covering
+    one Runsignup business surface.'
+  tags:
+  - Runsignup
+  - Races
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNSIGNUP_API_KEY: RUNSIGNUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: runsignup-races
+    baseUri: https://runsignup.com/Rest
+    description: RunSignup API — Races business capability. Self-contained, no shared references.
+    resources:
+    - name: race-race_id
+      path: /race/{race_id}
+      operations:
+      - name: getrace
+        method: GET
+        description: Get Race
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+        - name: events
+          in: query
+          type: string
+          description: Include event details
+    - name: races
+      path: /races
+      operations:
+      - name: getraces
+        method: GET
+        description: Get Races
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+          description: Response format
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: results_per_page
+          in: query
+          type: integer
+          description: Number of results per page (max 1000)
+        - name: search_term
+          in: query
+          type: string
+          description: Search term to filter races by name
+        - name: start_date
+          in: query
+          type: string
+          description: Filter races starting on or after this date (MM/DD/YYYY)
+        - name: end_date
+          in: query
+          type: string
+          description: Filter races starting on or before this date (MM/DD/YYYY)
+        - name: state
+          in: query
+          type: string
+          description: Filter races by US state abbreviation
+        - name: country_code
+          in: query
+          type: string
+          description: Filter races by country code
+        - name: events
+          in: query
+          type: string
+          description: Include event details in response (T/F)
+    authentication:
+      type: bearer
+      token: '{{env.RUNSIGNUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: runsignup-races-rest
+    port: 8080
+    description: REST adapter for RunSignup API — Races. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/race/{race-id}
+      name: race-race-id
+      description: REST surface for race-race_id.
+      operations:
+      - method: GET
+        name: getrace
+        description: Get Race
+        call: runsignup-races.getrace
+        with:
+          format: rest.format
+          events: rest.events
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/races
+      name: races
+      description: REST surface for races.
+      operations:
+      - method: GET
+        name: getraces
+        description: Get Races
+        call: runsignup-races.getraces
+        with:
+          format: rest.format
+          page: rest.page
+          results_per_page: rest.results_per_page
+          search_term: rest.search_term
+          start_date: rest.start_date
+          end_date: rest.end_date
+          state: rest.state
+          country_code: rest.country_code
+          events: rest.events
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: runsignup-races-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RunSignup API — Races. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-race
+      description: Get Race
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runsignup-races.getrace
+      with:
+        format: tools.format
+        events: tools.events
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-races
+      description: Get Races
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runsignup-races.getraces
+      with:
+        format: tools.format
+        page: tools.page
+        results_per_page: tools.results_per_page
+        search_term: tools.search_term
+        start_date: tools.start_date
+        end_date: tools.end_date
+        state: tools.state
+        country_code: tools.country_code
+        events: tools.events
+      outputParameters:
+      - type: object
+        mapping: $.

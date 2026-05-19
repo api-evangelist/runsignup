@@ -1,0 +1,78 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RunSignup API — Reference
+  description: 'RunSignup API — Reference. 1 operations. Lead operation: Get Countries and States. Self-contained Naftiko
+    capability covering one Runsignup business surface.'
+  tags:
+  - Runsignup
+  - Reference
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNSIGNUP_API_KEY: RUNSIGNUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: runsignup-reference
+    baseUri: https://runsignup.com/Rest
+    description: RunSignup API — Reference business capability. Self-contained, no shared references.
+    resources:
+    - name: countries
+      path: /countries
+      operations:
+      - name: getcountries
+        method: GET
+        description: Get Countries and States
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.RUNSIGNUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: runsignup-reference-rest
+    port: 8080
+    description: REST adapter for RunSignup API — Reference. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/countries
+      name: countries
+      description: REST surface for countries.
+      operations:
+      - method: GET
+        name: getcountries
+        description: Get Countries and States
+        call: runsignup-reference.getcountries
+        with:
+          format: rest.format
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: runsignup-reference-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RunSignup API — Reference. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-countries-and-states
+      description: Get Countries and States
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runsignup-reference.getcountries
+      with:
+        format: tools.format
+      outputParameters:
+      - type: object
+        mapping: $.

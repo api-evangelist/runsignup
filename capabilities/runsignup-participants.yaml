@@ -1,0 +1,224 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RunSignup API — Participants
+  description: 'RunSignup API — Participants. 4 operations. Lead operation: Delete Race Participants. Self-contained Naftiko
+    capability covering one Runsignup business surface.'
+  tags:
+  - Runsignup
+  - Participants
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNSIGNUP_API_KEY: RUNSIGNUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: runsignup-participants
+    baseUri: https://runsignup.com/Rest
+    description: RunSignup API — Participants business capability. Self-contained, no shared references.
+    resources:
+    - name: race-race_id-delete-participants
+      path: /race/{race_id}/delete-participants
+      operations:
+      - name: deleteparticipants
+        method: POST
+        description: Delete Race Participants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: race-race_id-get-bib-chip
+      path: /race/{race_id}/get-bib-chip
+      operations:
+      - name: getbibchipassignments
+        method: GET
+        description: Get Bib and Chip Assignments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: event_id
+          in: query
+          type: integer
+          description: The specific event ID to get assignments for
+    - name: race-race_id-participants
+      path: /race/{race_id}/participants
+      operations:
+      - name: getraceparticipants
+        method: GET
+        description: Get Race Participants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+        - name: event_id
+          in: query
+          type: integer
+          description: Filter by specific event ID within the race
+        - name: page
+          in: query
+          type: integer
+        - name: results_per_page
+          in: query
+          type: integer
+        - name: include_transfers
+          in: query
+          type: string
+          description: Include transferred registrations (T/F)
+        - name: since_datetime
+          in: query
+          type: string
+          description: Only return registrations created or modified after this datetime
+      - name: addoreditparticipants
+        method: POST
+        description: Add or Edit Race Participants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RUNSIGNUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: runsignup-participants-rest
+    port: 8080
+    description: REST adapter for RunSignup API — Participants. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/race/{race-id}/delete-participants
+      name: race-race-id-delete-participants
+      description: REST surface for race-race_id-delete-participants.
+      operations:
+      - method: POST
+        name: deleteparticipants
+        description: Delete Race Participants
+        call: runsignup-participants.deleteparticipants
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/race/{race-id}/get-bib-chip
+      name: race-race-id-get-bib-chip
+      description: REST surface for race-race_id-get-bib-chip.
+      operations:
+      - method: GET
+        name: getbibchipassignments
+        description: Get Bib and Chip Assignments
+        call: runsignup-participants.getbibchipassignments
+        with:
+          event_id: rest.event_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/race/{race-id}/participants
+      name: race-race-id-participants
+      description: REST surface for race-race_id-participants.
+      operations:
+      - method: GET
+        name: getraceparticipants
+        description: Get Race Participants
+        call: runsignup-participants.getraceparticipants
+        with:
+          format: rest.format
+          event_id: rest.event_id
+          page: rest.page
+          results_per_page: rest.results_per_page
+          include_transfers: rest.include_transfers
+          since_datetime: rest.since_datetime
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addoreditparticipants
+        description: Add or Edit Race Participants
+        call: runsignup-participants.addoreditparticipants
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: runsignup-participants-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RunSignup API — Participants. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: delete-race-participants
+      description: Delete Race Participants
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: runsignup-participants.deleteparticipants
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-bib-and-chip-assignments
+      description: Get Bib and Chip Assignments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runsignup-participants.getbibchipassignments
+      with:
+        event_id: tools.event_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-race-participants
+      description: Get Race Participants
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runsignup-participants.getraceparticipants
+      with:
+        format: tools.format
+        event_id: tools.event_id
+        page: tools.page
+        results_per_page: tools.results_per_page
+        include_transfers: tools.include_transfers
+        since_datetime: tools.since_datetime
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-edit-race-participants
+      description: Add or Edit Race Participants
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: runsignup-participants.addoreditparticipants
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

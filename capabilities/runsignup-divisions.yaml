@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RunSignup API — Divisions
+  description: 'RunSignup API — Divisions. 1 operations. Lead operation: Get Race Divisions. Self-contained Naftiko capability
+    covering one Runsignup business surface.'
+  tags:
+  - Runsignup
+  - Divisions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNSIGNUP_API_KEY: RUNSIGNUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: runsignup-divisions
+    baseUri: https://runsignup.com/Rest
+    description: RunSignup API — Divisions business capability. Self-contained, no shared references.
+    resources:
+    - name: race-race_id-divisions-divisions
+      path: /race/{race_id}/divisions/divisions
+      operations:
+      - name: getracedivisions
+        method: GET
+        description: Get Race Divisions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: event_id
+          in: query
+          type: integer
+          description: Filter by specific event ID
+    authentication:
+      type: bearer
+      token: '{{env.RUNSIGNUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: runsignup-divisions-rest
+    port: 8080
+    description: REST adapter for RunSignup API — Divisions. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/race/{race-id}/divisions/divisions
+      name: race-race-id-divisions-divisions
+      description: REST surface for race-race_id-divisions-divisions.
+      operations:
+      - method: GET
+        name: getracedivisions
+        description: Get Race Divisions
+        call: runsignup-divisions.getracedivisions
+        with:
+          event_id: rest.event_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: runsignup-divisions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RunSignup API — Divisions. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-race-divisions
+      description: Get Race Divisions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runsignup-divisions.getracedivisions
+      with:
+        event_id: tools.event_id
+      outputParameters:
+      - type: object
+        mapping: $.
