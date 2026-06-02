@@ -2,12 +2,20 @@
   "repo": "runsignup",
   "feeds": [
     {
-      "source": "https://runsignup.blog",
+      "source": "https://runsignup.blog/feed/",
       "feed_url": "https://runsignup.blog/feed/",
-      "title": "RunSignup Blog",
-      "saved": 3
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/RunSignUp-Team/OpenSource",
+      "feed_url": "https://github.com/RunSignUp-Team/OpenSource",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 13,
-  "fetched": "2026-05-17T20:20:35Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
