@@ -1,0 +1,676 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RunSignup API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://runsignup.com/OAuth/Authorize",
+      "accessTokenUrl": "https://runsignup.com/OAuth/Token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Races",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Races",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/races",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "results_per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 1000)"
+              },
+              {
+                "name": "search_term",
+                "value": "",
+                "type": "query",
+                "description": "Search term to filter races by name"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter races starting on or after this date (MM/DD/YYYY)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter races starting on or before this date (MM/DD/YYYY)"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter races by US state abbreviation"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter races by country code"
+              },
+              {
+                "name": "events",
+                "value": "",
+                "type": "query",
+                "description": "Include event details in response (T/F)"
+              }
+            ]
+          },
+          "docs": "Returns a list of upcoming races with event information. Event start and end times are in the timezone of the race. Results are paginated with a maximum of 1,000 races per page."
+        },
+        {
+          "info": {
+            "name": "Get Race",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "events",
+                "value": "",
+                "type": "query",
+                "description": "Include event details"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific race including all events, registration settings, pricing, and configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Participants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/participants",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific event ID within the race"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_transfers",
+                "value": "",
+                "type": "query",
+                "description": "Include transferred registrations (T/F)"
+              },
+              {
+                "name": "since_datetime",
+                "value": "",
+                "type": "query",
+                "description": "Only return registrations created or modified after this datetime"
+              }
+            ]
+          },
+          "docs": "Returns a list of registered participants for the specified race. Can be filtered by event, registration status, and other criteria. Includes registration ID, name, contact info, bib, chip, and custom question responses."
+        },
+        {
+          "info": {
+            "name": "Add or Edit Race Participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/participants",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds new participants or edits existing participant registrations for a race. Used by timing companies and race management systems to sync registration data."
+        },
+        {
+          "info": {
+            "name": "Delete Race Participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/delete-participants",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes specified participant registrations from a race. Requires race director or admin access."
+        },
+        {
+          "info": {
+            "name": "Get Bib and Chip Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/get-bib-chip",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "The specific event ID to get assignments for"
+              }
+            ]
+          },
+          "docs": "Returns bib number and chip/RFID tag assignments for participants in a race event. Used by timing companies to retrieve tag-to-bib mappings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/get-results",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific event ID"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all results across all result sets for a race. Includes placing, finish time, chip time, and division results for each participant."
+        },
+        {
+          "info": {
+            "name": "Post Full Race Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/full-results",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits complete race results for an event. Each result includes registration ID, place, clock time, and optionally chip time. This is the primary endpoint used by timing systems to upload results."
+        },
+        {
+          "info": {
+            "name": "Post Finishing Times",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/finishing-times",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts finishing time data for participants in an event. Designed for real-time results updates from timing systems during or after a race."
+        },
+        {
+          "info": {
+            "name": "Set Race Start Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/start-time",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the official start time for a race event. Used by timing systems to record the gun time or wave start time."
+        },
+        {
+          "info": {
+            "name": "Clear Race Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/clear-results",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes all results for a specified result set. Use with caution as this operation cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Import Results from CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/csv-import",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "event_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Imports race results from a CSV file upload. The CSV must include at minimum bib number and finish time columns."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Divisions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Divisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/divisions/divisions",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific event ID"
+              }
+            ]
+          },
+          "docs": "Returns all age group and category divisions configured for a race event. Divisions are used to assign places within specific competitor categories."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Corrals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Corrals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/corrals",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific event ID"
+              }
+            ]
+          },
+          "docs": "Returns corral configuration for a race event, including corral names and participant assignments for wave-start events."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/teams",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns teams and groups registered for a race event. Includes team names, members, and team scores where applicable."
+        },
+        {
+          "info": {
+            "name": "Add or Edit Race Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/teams",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new teams or updates existing team records for a race."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Donations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Donations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/donations/list",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "results_per_page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of donations made in association with race registrations. Includes donor information, amount, and associated fundraiser."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Partner Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/users",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of users associated with a partner account."
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/user/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique user ID"
+              }
+            ]
+          },
+          "docs": "Returns detailed profile information for a specific user account."
+        },
+        {
+          "info": {
+            "name": "Create User Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new RunSignup user account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Countries and States",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/countries",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of all countries with their state/province subdivisions. Used as reference data for address fields in registration forms."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

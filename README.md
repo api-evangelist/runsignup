@@ -1,7 +1,8 @@
 # RunSignup (runsignup)
+
 RunSignup is an all-in-one race registration and event management platform serving running events, triathlons, cycling events, and obstacle courses. Their open REST API enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, fundraising, volunteer management, and event analytics into their own applications. The API supports OAuth 2.0 authentication and covers 100+ endpoints across 29 categories for comprehensive event lifecycle management.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/runsignup/refs/heads/main/apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/runsignup/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/runsignup/refs/heads/main/apis.yml)
 
 ## Scope
 
@@ -9,79 +10,59 @@ RunSignup is an all-in-one race registration and event management platform servi
 - **Position:** Consumer
 - **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Race Registration, Event Management, Running, Sports, Fitness, Timing, Fundraising
+- Race Registration
+- Event Management
+- Running
+- Sports
+- Fitness
+- Timing
+- Fundraising
 
 ## Timestamps
 
 - **Created:** 2025-02-06
-- **Modified:** 2026-05-02
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### RunSignup API
-The RunSignup REST API provides access to race and event management operations including race listings, participant registration and management, results import and posting, bib and chip management, division and corral management, team and group management, donations and fundraising, volunteer management, and user account management. Base URL is https://runsignup.com/Rest. Supports OAuth 2.0 and permanent API keys for partners and timers.
 
-**Human URL:** [https://runsignup.com/API](https://runsignup.com/API)
+The RunSignup REST API provides access to race and event management operations including race listings, participant registration and management, results import and posting, bib and chip management, division and corral management, team and group management, donations and fundraising, volunteer management, and user account management. The API uses a base URL of https://runsignup.com/Rest and supports both JSON and XML response formats. Authentication options include OAuth 2.0 (preferred), permanent API keys for partners and timers, and login-based credentials. Access levels vary by role: affiliates, partners, race directors, users, timers, and super partners each have different endpoint permissions.
 
-**Base URL:** https://runsignup.com/Rest
+- **Human URL:** [https://runsignup.com/API](https://runsignup.com/API)
+- **Base URL:** `https://runsignup.com/Rest`
 
-#### Tags:
+#### Tags
 
- - Race Registration, Event Management, Running, Sports, Timing, Participants, Results, Fundraising
+- Race Registration
+- Event Management
+- Running
+- Sports
+- Timing
+- Participants
+- Results
+- Fundraising
 
 #### Properties
 
 - [Documentation](https://runsignup.com/API/DocOverview)
-- [OpenAPI](openapi/runsignup-openapi.yml)
+- [OpenAPI](openapi/runsignup-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/runsignup.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/runsignup.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 - [Getting Started](https://runsignup.com/API/GettingStarted)
 - [Authentication](https://runsignup.com/API/GettingStarted)
 - [GitHub Repository](https://github.com/RunSignUp-Team/OpenSource)
-- [Spectral Rules](rules/runsignup-rules.yml)
+- [Spectral  Rules](rules/runsignup-rules.yml)
 - [Vocabulary](vocabulary/runsignup-vocabulary.yml)
-- [JSON Schema](json-schema/runsignup-race-schema.json)
+- [JSON Schema](json-schema/runsignup-race-schema.json) — [JSON Schema](https://json-schema.org/specification)
 - [JSON Structure](json-structure/runsignup-race-structure.json)
-- [JSON-LD](json-ld/runsignup-context.jsonld)
-- [Naftiko Capability](capabilities/race-event-management.yaml)
-
-## Spectral Rules
-
-- [RunSignup API Rules](rules/runsignup-rules.yml)
-
-## Capabilities
-
-### Shared Definitions
-
-- [RunSignup API](capabilities/shared/runsignup-api.yaml)
-
-### Workflow Capabilities
-
-- [Race Event Management](capabilities/race-event-management.yaml) — Race discovery, participant management, timing operations, results submission, divisions, teams, and fundraising (9 tools)
-
-## JSON Schema
-
-- [RunSignup Race Schema](json-schema/runsignup-race-schema.json)
-
-## JSON Structure
-
-- [RunSignup Race Structure](json-structure/runsignup-race-structure.json)
-
-## JSON-LD
-
-- [RunSignup Context](json-ld/runsignup-context.jsonld)
-
-## Examples
-
-- [Get Races Example](examples/runsignup-get-races-example.json)
-- [Post Race Results Example](examples/runsignup-post-results-example.json)
-
-## Vocabulary
-
-- [RunSignup Race Registration Vocabulary](vocabulary/runsignup-vocabulary.yml)
+- [JSON-LD](json-ld/runsignup-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ## Common Properties
 
+- [LinkedIn](https://www.linkedin.com/company/runsignup-com)
 - [Website](https://runsignup.com)
 - [Documentation](https://runsignup.com/API)
 - [GitHub Organization](https://github.com/RunSignUp-Team)
@@ -93,5 +74,4 @@ The RunSignup REST API provides access to race and event management operations i
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
