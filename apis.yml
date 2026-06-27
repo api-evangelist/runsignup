@@ -55,7 +55,7 @@ apis:
         url: https://runsignup.com/API/GettingStarted
       - type: GitHubRepository
         url: https://github.com/RunSignUp-Team/OpenSource
-      - type: Spectral Rules
+      - type: SpectralRules
         url: rules/runsignup-rules.yml
       - type: Vocabulary
         url: vocabulary/runsignup-vocabulary.yml
