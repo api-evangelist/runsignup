@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/runsignup-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/runsignup-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://runsignup.com/OAuth/Authorize
+    tokenUrl: https://runsignup.com/OAuth/Token
+  description: OAuth 2.0 authentication (preferred)
+scopes:
+- scope: read
+  description: Read access to race and participant data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/runsignup-openapi.yml
+- scope: write
+  description: Write access to race and participant data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/runsignup-openapi.yml

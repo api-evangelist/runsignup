@@ -66,6 +66,10 @@ apis:
       - type: JSONLD
         url: json-ld/runsignup-context.jsonld
 common:
+  - type: Authentication
+    url: authentication/runsignup-authentication.yml
+  - type: OAuthScopes
+    url: scopes/runsignup-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/runsignup-com
   - type: Website
