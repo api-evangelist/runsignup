@@ -66,6 +66,8 @@ apis:
       - type: JSONLD
         url: json-ld/runsignup-context.jsonld
 common:
+  - type: DomainSecurity
+    url: security/runsignup-domain-security.yml
   - type: Authentication
     url: authentication/runsignup-authentication.yml
   - type: OAuthScopes
