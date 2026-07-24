@@ -1,0 +1,221 @@
+openapi: 3.1.0
+info:
+  title: RunSignup Corrals Users API
+  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.
+  version: '1.0'
+  contact:
+    name: RunSignup Support
+    url: https://runsignup.com/support
+  termsOfService: https://runsignup.com/terms
+servers:
+- url: https://runsignup.com/Rest
+  description: RunSignup REST API
+security:
+- OAuth2: []
+- apiKeyAuth: []
+tags:
+- name: Users
+  description: Manage user accounts and authentication for the RunSignup platform.
+paths:
+  /users:
+    get:
+      operationId: getUsers
+      summary: Get Partner Users
+      description: Returns a list of users associated with a partner account.
+      tags:
+      - Users
+      parameters:
+      - name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{user_id}:
+    get:
+      operationId: getUser
+      summary: Get User
+      description: Returns detailed profile information for a specific user account.
+      tags:
+      - Users
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: The unique user ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /user:
+    post:
+      operationId: createUser
+      summary: Create User Account
+      description: Creates a new RunSignup user account.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: string
+        gender:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        created:
+          type: string
+          format: date-time
+        last_modified:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
+    UserResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    UsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        country_code:
+          type: string
+    CreateUserRequest:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - email
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: string
+          description: Date of birth (MM/DD/YYYY)
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - X
+        address:
+          $ref: '#/components/schemas/Address'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authentication (preferred)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://runsignup.com/OAuth/Authorize
+          tokenUrl: https://runsignup.com/OAuth/Token
+          scopes:
+            read: Read access to race and participant data
+            write: Write access to race and participant data
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Permanent API key for affiliates, partners, and timers. Pass api_key and api_secret as query parameters.
+externalDocs:
+  description: RunSignup API Documentation
+  url: https://runsignup.com/API

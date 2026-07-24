@@ -1,0 +1,122 @@
+openapi: 3.1.0
+info:
+  title: RunSignup Corrals Divisions API
+  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.
+  version: '1.0'
+  contact:
+    name: RunSignup Support
+    url: https://runsignup.com/support
+  termsOfService: https://runsignup.com/terms
+servers:
+- url: https://runsignup.com/Rest
+  description: RunSignup REST API
+security:
+- OAuth2: []
+- apiKeyAuth: []
+tags:
+- name: Divisions
+  description: Manage age group and category divisions for accurate results processing.
+paths:
+  /race/{race_id}/divisions/divisions:
+    get:
+      operationId: getRaceDivisions
+      summary: Get Race Divisions
+      description: Returns all age group and category divisions configured for a race event. Divisions are used to assign places within specific competitor categories.
+      tags:
+      - Divisions
+      parameters:
+      - $ref: '#/components/parameters/RaceId'
+      - name: event_id
+        in: query
+        description: Filter by specific event ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Race divisions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
+    DivisionsResponse:
+      type: object
+      properties:
+        divisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Division'
+    Division:
+      type: object
+      properties:
+        division_id:
+          type: integer
+        name:
+          type: string
+          description: Division name (e.g., "Male 30-34")
+        gender:
+          type: string
+          enum:
+          - M
+          - F
+          - X
+        age_min:
+          type: integer
+        age_max:
+          type: integer
+        event_id:
+          type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    RaceId:
+      name: race_id
+      in: path
+      required: true
+      description: The unique ID of the race
+      schema:
+        type: integer
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authentication (preferred)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://runsignup.com/OAuth/Authorize
+          tokenUrl: https://runsignup.com/OAuth/Token
+          scopes:
+            read: Read access to race and participant data
+            write: Write access to race and participant data
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Permanent API key for affiliates, partners, and timers. Pass api_key and api_secret as query parameters.
+externalDocs:
+  description: RunSignup API Documentation
+  url: https://runsignup.com/API

@@ -1,0 +1,299 @@
+openapi: 3.1.0
+info:
+  title: RunSignup Corrals Races API
+  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.
+  version: '1.0'
+  contact:
+    name: RunSignup Support
+    url: https://runsignup.com/support
+  termsOfService: https://runsignup.com/terms
+servers:
+- url: https://runsignup.com/Rest
+  description: RunSignup REST API
+security:
+- OAuth2: []
+- apiKeyAuth: []
+tags:
+- name: Races
+  description: List, search, and retrieve race and event information including details, events, schedules, and registration settings.
+paths:
+  /races:
+    get:
+      operationId: getRaces
+      summary: Get Races
+      description: Returns a list of upcoming races with event information. Event start and end times are in the timezone of the race. Results are paginated with a maximum of 1,000 races per page.
+      tags:
+      - Races
+      parameters:
+      - name: format
+        in: query
+        description: Response format
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: page
+        in: query
+        description: Page number for pagination
+        schema:
+          type: integer
+          default: 1
+      - name: results_per_page
+        in: query
+        description: Number of results per page (max 1000)
+        schema:
+          type: integer
+          default: 25
+          maximum: 1000
+      - name: search_term
+        in: query
+        description: Search term to filter races by name
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Filter races starting on or after this date (MM/DD/YYYY)
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: Filter races starting on or before this date (MM/DD/YYYY)
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter races by US state abbreviation
+        schema:
+          type: string
+      - name: country_code
+        in: query
+        description: Filter races by country code
+        schema:
+          type: string
+      - name: events
+        in: query
+        description: Include event details in response (T/F)
+        schema:
+          type: string
+          enum:
+          - T
+          - F
+          default: F
+      responses:
+        '200':
+          description: List of races
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /race/{race_id}:
+    get:
+      operationId: getRace
+      summary: Get Race
+      description: Returns detailed information about a specific race including all events, registration settings, pricing, and configuration.
+      tags:
+      - Races
+      parameters:
+      - $ref: '#/components/parameters/RaceId'
+      - name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: events
+        in: query
+        description: Include event details
+        schema:
+          type: string
+          enum:
+          - T
+          - F
+          default: T
+      responses:
+        '200':
+          description: Race details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaceResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Race:
+      type: object
+      properties:
+        race_id:
+          type: integer
+          description: Unique race identifier
+        name:
+          type: string
+          description: Race name
+        next_date:
+          type: string
+          description: Next upcoming event date
+        next_end_date:
+          type: string
+          description: Next event end date
+        is_draft_race:
+          type: string
+          enum:
+          - T
+          - F
+        is_private_race:
+          type: string
+          enum:
+          - T
+          - F
+        is_registration_open:
+          type: string
+          enum:
+          - T
+          - F
+        created:
+          type: string
+        last_modified:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country_code:
+          type: string
+        zip:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+        external_race_url:
+          type: string
+          format: uri
+        charity_id:
+          type: integer
+        logo_url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
+    Event:
+      type: object
+      properties:
+        event_id:
+          type: integer
+          description: Unique event ID within the race
+        name:
+          type: string
+          description: Event name (e.g., "5K Run", "Half Marathon")
+        start_time:
+          type: string
+          description: Event start time in race's local timezone
+        end_time:
+          type: string
+        distance:
+          type: number
+          description: Event distance
+        distance_unit:
+          type: string
+          enum:
+          - K
+          - M
+          - Miles
+        max_participants:
+          type: integer
+        registration_opens:
+          type: string
+        registration_closes:
+          type: string
+        age_min:
+          type: integer
+        age_max:
+          type: integer
+    RaceListResponse:
+      type: object
+      properties:
+        races:
+          type: array
+          items:
+            type: object
+            properties:
+              race:
+                $ref: '#/components/schemas/Race'
+        total_results:
+          type: integer
+        num_results:
+          type: integer
+    RaceResponse:
+      type: object
+      properties:
+        race:
+          $ref: '#/components/schemas/Race'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    RaceId:
+      name: race_id
+      in: path
+      required: true
+      description: The unique ID of the race
+      schema:
+        type: integer
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authentication (preferred)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://runsignup.com/OAuth/Authorize
+          tokenUrl: https://runsignup.com/OAuth/Token
+          scopes:
+            read: Read access to race and participant data
+            write: Write access to race and participant data
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Permanent API key for affiliates, partners, and timers. Pass api_key and api_secret as query parameters.
+externalDocs:
+  description: RunSignup API Documentation
+  url: https://runsignup.com/API

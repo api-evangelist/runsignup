@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  title: RunSignup Corrals Reference API
+  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.
+  version: '1.0'
+  contact:
+    name: RunSignup Support
+    url: https://runsignup.com/support
+  termsOfService: https://runsignup.com/terms
+servers:
+- url: https://runsignup.com/Rest
+  description: RunSignup REST API
+security:
+- OAuth2: []
+- apiKeyAuth: []
+tags:
+- name: Reference
+  description: Reference data such as countries and states used across the API.
+paths:
+  /countries:
+    get:
+      operationId: getCountries
+      summary: Get Countries and States
+      description: Returns a list of all countries with their state/province subdivisions. Used as reference data for address fields in registration forms.
+      tags:
+      - Reference
+      parameters:
+      - name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      responses:
+        '200':
+          description: Countries and states reference data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountriesResponse'
+components:
+  schemas:
+    CountriesResponse:
+      type: object
+      properties:
+        countries:
+          type: array
+          items:
+            type: object
+            properties:
+              country_code:
+                type: string
+              name:
+                type: string
+              states:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    state_code:
+                      type: string
+                    name:
+                      type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authentication (preferred)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://runsignup.com/OAuth/Authorize
+          tokenUrl: https://runsignup.com/OAuth/Token
+          scopes:
+            read: Read access to race and participant data
+            write: Write access to race and participant data
+    apiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Permanent API key for affiliates, partners, and timers. Pass api_key and api_secret as query parameters.
+externalDocs:
+  description: RunSignup API Documentation
+  url: https://runsignup.com/API
