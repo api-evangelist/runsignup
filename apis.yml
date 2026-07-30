@@ -7,9 +7,22 @@ description: >-
   and event analytics into their own applications. The API supports OAuth 2.0 authentication and covers 100+ endpoints
   across 29 categories for comprehensive event lifecycle management.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/runsignup.png
 tags:
   - Race Registration
   - Event Management
@@ -23,48 +36,264 @@ created: '2025-02-06'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: runsignup:runsignup
-    name: RunSignup API
-    description: >-
-      The RunSignup REST API provides access to race and event management operations including race listings,
-      participant registration and management, results import and posting, bib and chip management, division and corral
-      management, team and group management, donations and fundraising, volunteer management, and user account
-      management. The API uses a base URL of https://runsignup.com/Rest and supports both JSON and XML response formats.
-      Authentication options include OAuth 2.0 (preferred), permanent API keys for partners and timers, and login-based
-      credentials. Access levels vary by role: affiliates, partners, race directors, users, timers, and super partners
-      each have different endpoint permissions.
-    humanURL: https://runsignup.com/API
-    baseURL: https://runsignup.com/Rest
-    tags:
-      - Race Registration
-      - Event Management
-      - Running
-      - Sports
-      - Timing
-      - Participants
-      - Results
-      - Fundraising
-    properties:
-      - type: Documentation
-        url: https://runsignup.com/API/DocOverview
-      - type: OpenAPI
-        url: openapi/runsignup-openapi.yml
-      - type: GettingStarted
-        url: https://runsignup.com/API/GettingStarted
-      - type: Authentication
-        url: https://runsignup.com/API/GettingStarted
-      - type: GitHubRepository
-        url: https://github.com/RunSignUp-Team/OpenSource
-      - type: SpectralRules
-        url: rules/runsignup-rules.yml
-      - type: Vocabulary
-        url: vocabulary/runsignup-vocabulary.yml
-      - type: JSONSchema
-        url: json-schema/runsignup-race-schema.json
-      - type: JSONStructure
-        url: json-structure/runsignup-race-structure.json
-      - type: JSONLD
-        url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-corrals-api
+  name: RunSignup Corrals API
+  description: Manage participant corrals for wave start events.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Corrals
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-corrals-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-divisions-api
+  name: RunSignup Divisions API
+  description: Manage age group and category divisions for accurate results processing.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Divisions
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-divisions-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-donations-api
+  name: RunSignup Donations API
+  description: Retrieve donation and fundraising data associated with race registrations.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Donations
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-donations-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-participants-api
+  name: RunSignup Participants API
+  description: >-
+    Manage race participants including registration, editing, deletion, bib/chip assignment, and participant
+    data retrieval.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Participants
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-participants-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-races-api
+  name: RunSignup Races API
+  description: >-
+    List, search, and retrieve race and event information including details, events, schedules, and registration
+    settings.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Races
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-races-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-reference-api
+  name: RunSignup Reference API
+  description: Reference data such as countries and states used across the API.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-reference-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-results-api
+  name: RunSignup Results API
+  description: >-
+    Submit, import, and retrieve race results including finishing times, result sets, and full results
+    with place and time data.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-results-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-teams-api
+  name: RunSignup Teams API
+  description: Manage teams and groups for team-based race events.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-teams-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
+- aid: runsignup:runsignup-users-api
+  name: RunSignup Users API
+  description: Manage user accounts and authentication for the RunSignup platform.
+  humanURL: https://runsignup.com/API
+  baseURL: https://runsignup.com/Rest
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/runsignup-users-api-openapi.yml
+  - type: Documentation
+    url: https://runsignup.com/API/DocOverview
+  - type: GettingStarted
+    url: https://runsignup.com/API/GettingStarted
+  - type: Authentication
+    url: https://runsignup.com/API/GettingStarted
+  - type: GitHubRepository
+    url: https://github.com/RunSignUp-Team/OpenSource
+  - type: SpectralRules
+    url: rules/runsignup-rules.yml
+  - type: Vocabulary
+    url: vocabulary/runsignup-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/runsignup-race-schema.json
+  - type: JSONStructure
+    url: json-structure/runsignup-race-structure.json
+  - type: JSONLD
+    url: json-ld/runsignup-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/runsignup-agentic-access.yml
