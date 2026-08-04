@@ -1,0 +1,30 @@
+{
+  "provider": "runsignup",
+  "sources": [
+    "runsignup-corrals-api-openapi.yml",
+    "runsignup-divisions-api-openapi.yml",
+    "runsignup-donations-api-openapi.yml",
+    "runsignup-participants-api-openapi.yml",
+    "runsignup-races-api-openapi.yml",
+    "runsignup-reference-api-openapi.yml",
+    "runsignup-results-api-openapi.yml",
+    "runsignup-teams-api-openapi.yml",
+    "runsignup-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "runsignup-corrals-api-openapi.yml",
+    "runsignup-divisions-api-openapi.yml",
+    "runsignup-donations-api-openapi.yml",
+    "runsignup-participants-api-openapi.yml",
+    "runsignup-races-api-openapi.yml",
+    "runsignup-reference-api-openapi.yml",
+    "runsignup-results-api-openapi.yml",
+    "runsignup-teams-api-openapi.yml",
+    "runsignup-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
