@@ -1,0 +1,1013 @@
+{
+  "item": [
+    {
+      "id": "2f2941aa-7bd1-4db5-a605-6629afcd7c6b",
+      "name": "Participants",
+      "description": {
+        "content": "Manage race participants including registration, editing, deletion, bib/chip assignment, and participant data retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d5c52e78-b7e2-49ba-ba21-9b81295ed026",
+          "name": "Get Race Participants",
+          "request": {
+            "name": "Get Race Participants",
+            "description": {
+              "content": "Returns a list of registered participants for the specified race. Can be filtered by event, registration status, and other criteria. Includes registration ID, name, contact info, bib, chip, and custom question responses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "race",
+                ":race_id",
+                "participants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_id",
+                  "value": "<integer>",
+                  "description": "Filter by specific event ID within the race"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "results_per_page",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_transfers",
+                  "value": "F",
+                  "description": "Include transferred registrations (T/F)"
+                },
+                {
+                  "disabled": false,
+                  "key": "since_datetime",
+                  "value": "<string>",
+                  "description": "Only return registrations created or modified after this datetime"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "race_id",
+                  "description": "(Required) The unique ID of the race"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "284bfd14-4ea4-4c96-8641-62feeae6ef2c",
+              "name": "List of race participants",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "results_per_page",
+                      "value": "100"
+                    },
+                    {
+                      "key": "include_transfers",
+                      "value": "F"
+                    },
+                    {
+                      "key": "since_datetime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"participants\": [\n    {\n      \"user\": {\n        \"registration_id\": 1550,\n        \"user_id\": 6492,\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"RwDbou9cRe0z@gltAMZXFXMKrysGYcKnqaflDsUqTnrzSe.yr\",\n        \"dob\": \"string\",\n        \"gender\": \"X\",\n        \"address\": {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zipcode\": \"string\",\n          \"country_code\": \"string\"\n        },\n        \"bib_num\": \"string\",\n        \"chip_num\": \"string\",\n        \"event_id\": 4779,\n        \"event_name\": \"string\",\n        \"race_id\": 7862,\n        \"team_id\": 4262,\n        \"team_name\": \"string\",\n        \"registration_date\": \"1971-11-01T02:58:24.998Z\",\n        \"last_modified\": \"1971-10-26T15:35:29.186Z\"\n      }\n    },\n    {\n      \"user\": {\n        \"registration_id\": 9770,\n        \"user_id\": 457,\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"Dhl@XxORTBZEePAKIeLQkbHNb.cbsf\",\n        \"dob\": \"string\",\n        \"gender\": \"F\",\n        \"address\": {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zipcode\": \"string\",\n          \"country_code\": \"string\"\n        },\n        \"bib_num\": \"string\",\n        \"chip_num\": \"string\",\n        \"event_id\": 8789,\n        \"event_name\": \"string\",\n        \"race_id\": 1099,\n        \"team_id\": 8506,\n        \"team_name\": \"string\",\n        \"registration_date\": \"1997-01-24T21:24:58.815Z\",\n        \"last_modified\": \"1963-05-18T23:21:45.683Z\"\n      }\n    }\n  ],\n  \"total_results\": 936,\n  \"num_results\": 671\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88f96ade-095d-429d-9f1e-7edba97687b4",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "results_per_page",
+                      "value": "100"
+                    },
+                    {
+                      "key": "include_transfers",
+                      "value": "F"
+                    },
+                    {
+                      "key": "since_datetime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae06afef-3608-4c88-a59d-0ff570a133c4",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "results_per_page",
+                      "value": "100"
+                    },
+                    {
+                      "key": "include_transfers",
+                      "value": "F"
+                    },
+                    {
+                      "key": "since_datetime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "925cfa7c-ca5f-4ae6-a66c-ef0b748c9ffc",
+          "name": "Add or Edit Race Participants",
+          "request": {
+            "name": "Add or Edit Race Participants",
+            "description": {
+              "content": "Adds new participants or edits existing participant registrations for a race. Used by timing companies and race management systems to sync registration data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "race",
+                ":race_id",
+                "participants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "race_id",
+                  "description": "(Required) The unique ID of the race"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participants\": [\n    {\n      \"registration_id\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"dob\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"address\": {\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipcode\": \"<string>\",\n        \"country_code\": \"<string>\"\n      },\n      \"bib_num\": \"<string>\",\n      \"chip_num\": \"<string>\",\n      \"event_id\": \"<integer>\",\n      \"event_name\": \"<string>\",\n      \"race_id\": \"<integer>\",\n      \"team_id\": \"<integer>\",\n      \"team_name\": \"<string>\",\n      \"registration_date\": \"<dateTime>\",\n      \"last_modified\": \"<dateTime>\"\n    },\n    {\n      \"registration_id\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"dob\": \"<string>\",\n      \"gender\": \"<string>\",\n      \"address\": {\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipcode\": \"<string>\",\n        \"country_code\": \"<string>\"\n      },\n      \"bib_num\": \"<string>\",\n      \"chip_num\": \"<string>\",\n      \"event_id\": \"<integer>\",\n      \"event_name\": \"<string>\",\n      \"race_id\": \"<integer>\",\n      \"team_id\": \"<integer>\",\n      \"team_name\": \"<string>\",\n      \"registration_date\": \"<dateTime>\",\n      \"last_modified\": \"<dateTime>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2047106c-9015-4e99-bbb5-e63e9f0d5eec",
+              "name": "Participants added or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"participants\": [\n    {\n      \"registration_id\": 3355,\n      \"user_id\": 8779,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"0ERA5ykVXaIkT@gFNmtLdARiXaIIs.qm\",\n      \"dob\": \"string\",\n      \"gender\": \"M\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipcode\": \"string\",\n        \"country_code\": \"string\"\n      },\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"event_id\": 4604,\n      \"event_name\": \"string\",\n      \"race_id\": 1331,\n      \"team_id\": 1289,\n      \"team_name\": \"string\",\n      \"registration_date\": \"1988-04-12T22:06:20.019Z\",\n      \"last_modified\": \"2017-06-13T09:15:58.996Z\"\n    },\n    {\n      \"registration_id\": 1286,\n      \"user_id\": 5288,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"7skyyr9h6BAoSs3@eoLYxaSBLRFMBAzfZ.fnl\",\n      \"dob\": \"string\",\n      \"gender\": \"F\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipcode\": \"string\",\n        \"country_code\": \"string\"\n      },\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"event_id\": 3939,\n      \"event_name\": \"string\",\n      \"race_id\": 8203,\n      \"team_id\": 3088,\n      \"team_name\": \"string\",\n      \"registration_date\": \"2021-11-10T00:39:08.395Z\",\n      \"last_modified\": \"1976-02-04T22:27:35.110Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"added\": 8459,\n  \"updated\": 7623,\n  \"errors\": [\n    {\n      \"registration_id\": 7972,\n      \"message\": \"string\"\n    },\n    {\n      \"registration_id\": 5791,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8333ba5a-4107-48ee-a9e5-7952cbe06419",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"participants\": [\n    {\n      \"registration_id\": 3355,\n      \"user_id\": 8779,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"0ERA5ykVXaIkT@gFNmtLdARiXaIIs.qm\",\n      \"dob\": \"string\",\n      \"gender\": \"M\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipcode\": \"string\",\n        \"country_code\": \"string\"\n      },\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"event_id\": 4604,\n      \"event_name\": \"string\",\n      \"race_id\": 1331,\n      \"team_id\": 1289,\n      \"team_name\": \"string\",\n      \"registration_date\": \"1988-04-12T22:06:20.019Z\",\n      \"last_modified\": \"2017-06-13T09:15:58.996Z\"\n    },\n    {\n      \"registration_id\": 1286,\n      \"user_id\": 5288,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"7skyyr9h6BAoSs3@eoLYxaSBLRFMBAzfZ.fnl\",\n      \"dob\": \"string\",\n      \"gender\": \"F\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipcode\": \"string\",\n        \"country_code\": \"string\"\n      },\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"event_id\": 3939,\n      \"event_name\": \"string\",\n      \"race_id\": 8203,\n      \"team_id\": 3088,\n      \"team_name\": \"string\",\n      \"registration_date\": \"2021-11-10T00:39:08.395Z\",\n      \"last_modified\": \"1976-02-04T22:27:35.110Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90c882c8-9725-408b-8242-e990b41acaa2",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"participants\": [\n    {\n      \"registration_id\": 3355,\n      \"user_id\": 8779,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"0ERA5ykVXaIkT@gFNmtLdARiXaIIs.qm\",\n      \"dob\": \"string\",\n      \"gender\": \"M\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipcode\": \"string\",\n        \"country_code\": \"string\"\n      },\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"event_id\": 4604,\n      \"event_name\": \"string\",\n      \"race_id\": 1331,\n      \"team_id\": 1289,\n      \"team_name\": \"string\",\n      \"registration_date\": \"1988-04-12T22:06:20.019Z\",\n      \"last_modified\": \"2017-06-13T09:15:58.996Z\"\n    },\n    {\n      \"registration_id\": 1286,\n      \"user_id\": 5288,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"7skyyr9h6BAoSs3@eoLYxaSBLRFMBAzfZ.fnl\",\n      \"dob\": \"string\",\n      \"gender\": \"F\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipcode\": \"string\",\n        \"country_code\": \"string\"\n      },\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"event_id\": 3939,\n      \"event_name\": \"string\",\n      \"race_id\": 8203,\n      \"team_id\": 3088,\n      \"team_name\": \"string\",\n      \"registration_date\": \"2021-11-10T00:39:08.395Z\",\n      \"last_modified\": \"1976-02-04T22:27:35.110Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8d6ccfa-f70e-4bc7-8940-f2b7e5c6081c",
+          "name": "Delete Race Participants",
+          "request": {
+            "name": "Delete Race Participants",
+            "description": {
+              "content": "Removes specified participant registrations from a race. Requires race director or admin access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "race",
+                ":race_id",
+                "delete-participants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "race_id",
+                  "description": "(Required) The unique ID of the race"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"registration_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4d83055-331a-44b4-9256-f24c53bd19bf",
+              "name": "Participants deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "delete-participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"registration_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted_count\": 9759\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aac0788c-8665-4623-b6c9-8d897829bd9c",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "delete-participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"registration_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91dcfa28-3851-433b-b03b-b96cfd5dd8b5",
+          "name": "Get Bib and Chip Assignments",
+          "request": {
+            "name": "Get Bib and Chip Assignments",
+            "description": {
+              "content": "Returns bib number and chip/RFID tag assignments for participants in a race event. Used by timing companies to retrieve tag-to-bib mappings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "race",
+                ":race_id",
+                "get-bib-chip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "event_id",
+                  "value": "<integer>",
+                  "description": "The specific event ID to get assignments for"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "race_id",
+                  "description": "(Required) The unique ID of the race"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fe1f597-112b-46af-b3d9-aa27440d891b",
+              "name": "Bib and chip assignment data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "get-bib-chip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bib_chip_assignments\": [\n    {\n      \"registration_id\": 6910,\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"event_id\": 1179\n    },\n    {\n      \"registration_id\": 6466,\n      \"bib_num\": \"string\",\n      \"chip_num\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"event_id\": 1295\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "473523ae-639f-4a5b-8b61-4f9576fb98a6",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "get-bib-chip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c783a76-cc53-41c3-aad0-d208ef4d7842",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id",
+                    "get-bib-chip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://runsignup.com/Rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://runsignup.com/OAuth/Token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://runsignup.com/OAuth/Authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e3c266a4-f3cc-4707-a02d-d7655c51c1a8",
+    "name": "RunSignup Corrals Participants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.\n\nContact Support:\n Name: RunSignup Support",
+      "type": "text/plain"
+    }
+  }
+}

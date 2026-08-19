@@ -1,0 +1,622 @@
+{
+  "item": [
+    {
+      "id": "a267e0fe-0763-4ce4-a684-c5be29660389",
+      "name": "Races",
+      "description": {
+        "content": "List, search, and retrieve race and event information including details, events, schedules, and registration settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3347480b-e010-4c7f-9ab7-85eab343fedd",
+          "name": "Get Races",
+          "request": {
+            "name": "Get Races",
+            "description": {
+              "content": "Returns a list of upcoming races with event information. Event start and end times are in the timezone of the race. Results are paginated with a maximum of 1,000 races per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "races"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "results_per_page",
+                  "value": "25",
+                  "description": "Number of results per page (max 1000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_term",
+                  "value": "<string>",
+                  "description": "Search term to filter races by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Filter races starting on or after this date (MM/DD/YYYY)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "Filter races starting on or before this date (MM/DD/YYYY)"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter races by US state abbreviation"
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "Filter races by country code"
+                },
+                {
+                  "disabled": false,
+                  "key": "events",
+                  "value": "F",
+                  "description": "Include event details in response (T/F)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "987b0288-9d4b-4027-a899-f885f3b316fb",
+              "name": "List of races",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "races"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "results_per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "events",
+                      "value": "F"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"races\": [\n    {\n      \"race\": {\n        \"race_id\": 9480,\n        \"name\": \"string\",\n        \"next_date\": \"string\",\n        \"next_end_date\": \"string\",\n        \"is_draft_race\": \"T\",\n        \"is_private_race\": \"F\",\n        \"is_registration_open\": \"F\",\n        \"created\": \"string\",\n        \"last_modified\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country_code\": \"string\",\n        \"zip\": \"string\",\n        \"description\": \"string\",\n        \"url\": \"https://hWuUTggrgCkR.tsfb5uPzjUferSzsiOJFmR3YAZi6uQDP+NvuwFNPcDPznt2\",\n        \"external_race_url\": \"http://DquyvESVFKEdbEM.usbyoN8B3NpCehwuLE0hddGIdpGPjSM.1JbYyVN5RukFZF4+6g5xqp9fo9C7+6lkMpRzJHf9V1bDlP1l-..\",\n        \"charity_id\": 4863,\n        \"logo_url\": \"http://uSWdxtcONBJMUCDQRpavLbVjMKMqOTt.fazcq50GpImtrpDPgwr7ieUi9gX-MjWStPb87UfZVX\",\n        \"events\": [\n          {\n            \"event_id\": 3772,\n            \"name\": \"string\",\n            \"start_time\": \"string\",\n            \"end_time\": \"string\",\n            \"distance\": 930.1721117362549,\n            \"distance_unit\": \"Miles\",\n            \"max_participants\": 5619,\n            \"registration_opens\": \"string\",\n            \"registration_closes\": \"string\",\n            \"age_min\": 9783,\n            \"age_max\": 697\n          },\n          {\n            \"event_id\": 6184,\n            \"name\": \"string\",\n            \"start_time\": \"string\",\n            \"end_time\": \"string\",\n            \"distance\": 1333.1858974499744,\n            \"distance_unit\": \"M\",\n            \"max_participants\": 1118,\n            \"registration_opens\": \"string\",\n            \"registration_closes\": \"string\",\n            \"age_min\": 9385,\n            \"age_max\": 4976\n          }\n        ]\n      }\n    },\n    {\n      \"race\": {\n        \"race_id\": 1875,\n        \"name\": \"string\",\n        \"next_date\": \"string\",\n        \"next_end_date\": \"string\",\n        \"is_draft_race\": \"F\",\n        \"is_private_race\": \"T\",\n        \"is_registration_open\": \"F\",\n        \"created\": \"string\",\n        \"last_modified\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country_code\": \"string\",\n        \"zip\": \"string\",\n        \"description\": \"string\",\n        \"url\": \"https://WHfIppjMNZivHcPKwKMVgOGqx.wdmCvVW1qBSSBWvo1yLx,kBGe4hEXUJUoYq2LS6se6RCP1w5Xt9qI\",\n        \"external_race_url\": \"http://qTHOAMFB.ojtedWp6X+zvmAMa-kPybkDzrO3doZbJFA10I.2J5ngwzBKLdE+GNBWms8oOLLR\",\n        \"charity_id\": 9488,\n        \"logo_url\": \"http://UibYzxKyuylhlbfZjGyDTGfiCjdAK.eybmaNqPCRcLcvFO4\",\n        \"events\": [\n          {\n            \"event_id\": 9820,\n            \"name\": \"string\",\n            \"start_time\": \"string\",\n            \"end_time\": \"string\",\n            \"distance\": 4364.584664989941,\n            \"distance_unit\": \"K\",\n            \"max_participants\": 4795,\n            \"registration_opens\": \"string\",\n            \"registration_closes\": \"string\",\n            \"age_min\": 8520,\n            \"age_max\": 7004\n          },\n          {\n            \"event_id\": 906,\n            \"name\": \"string\",\n            \"start_time\": \"string\",\n            \"end_time\": \"string\",\n            \"distance\": 8418.881935512456,\n            \"distance_unit\": \"Miles\",\n            \"max_participants\": 8381,\n            \"registration_opens\": \"string\",\n            \"registration_closes\": \"string\",\n            \"age_min\": 6847,\n            \"age_max\": 9089\n          }\n        ]\n      }\n    }\n  ],\n  \"total_results\": 1743,\n  \"num_results\": 2235\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "585b5990-51d8-47ed-95ef-a9b45320ffec",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "races"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "results_per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "events",
+                      "value": "F"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b47b78c2-a0bd-4f42-90e6-76d83eb97afc",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "races"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "results_per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "events",
+                      "value": "F"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "827698bc-cd22-4caf-be28-684b5a95c0ee",
+          "name": "Get Race",
+          "request": {
+            "name": "Get Race",
+            "description": {
+              "content": "Returns detailed information about a specific race including all events, registration settings, pricing, and configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "race",
+                ":race_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "disabled": false,
+                  "key": "events",
+                  "value": "T",
+                  "description": "Include event details"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "race_id",
+                  "description": "(Required) The unique ID of the race"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd8feda3-4ced-49b6-97de-de61161aa12a",
+              "name": "Race details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "events",
+                      "value": "T"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"race\": {\n    \"race_id\": 5999,\n    \"name\": \"string\",\n    \"next_date\": \"string\",\n    \"next_end_date\": \"string\",\n    \"is_draft_race\": \"T\",\n    \"is_private_race\": \"F\",\n    \"is_registration_open\": \"T\",\n    \"created\": \"string\",\n    \"last_modified\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"country_code\": \"string\",\n    \"zip\": \"string\",\n    \"description\": \"string\",\n    \"url\": \"http://kyaTtehHQhfHTSsytfH.ljjgwHslM\",\n    \"external_race_url\": \"https://NTVepZXPDVY.cvwxt9ugqcHqSNHAzIQAkqtMemvCFe\",\n    \"charity_id\": 7208,\n    \"logo_url\": \"https://DRxwP.llBcFjgyze.-wVqsfJaphwGy0T5n.S0aJF\",\n    \"events\": [\n      {\n        \"event_id\": 5530,\n        \"name\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"distance\": 4231.645698800919,\n        \"distance_unit\": \"M\",\n        \"max_participants\": 2092,\n        \"registration_opens\": \"string\",\n        \"registration_closes\": \"string\",\n        \"age_min\": 395,\n        \"age_max\": 6686\n      },\n      {\n        \"event_id\": 4452,\n        \"name\": \"string\",\n        \"start_time\": \"string\",\n        \"end_time\": \"string\",\n        \"distance\": 4700.742313854926,\n        \"distance_unit\": \"K\",\n        \"max_participants\": 4764,\n        \"registration_opens\": \"string\",\n        \"registration_closes\": \"string\",\n        \"age_min\": 3285,\n        \"age_max\": 5081\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ca656cc-543f-48f7-8082-5ccf54aa66bc",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "events",
+                      "value": "T"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e98ef845-f063-4c20-81df-eb13d2cb5da7",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "race",
+                    ":race_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "events",
+                      "value": "T"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "race_id",
+                      "description": "(Required) The unique ID of the race"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://runsignup.com/Rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://runsignup.com/OAuth/Token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://runsignup.com/OAuth/Authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d5989c4-5c5f-4b02-a0ac-247894b4ced6",
+    "name": "RunSignup Corrals Races API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.\n\nContact Support:\n Name: RunSignup Support",
+      "type": "text/plain"
+    }
+  }
+}

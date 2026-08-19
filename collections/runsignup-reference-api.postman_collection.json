@@ -1,0 +1,142 @@
+{
+  "item": [
+    {
+      "id": "f37dbfc3-873d-40ca-858c-74fcd58604d1",
+      "name": "Reference",
+      "description": {
+        "content": "Reference data such as countries and states used across the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6d384ea-a6b6-47e8-a970-c3c7ad843882",
+          "name": "Get Countries and States",
+          "request": {
+            "name": "Get Countries and States",
+            "description": {
+              "content": "Returns a list of all countries with their state/province subdivisions. Used as reference data for address fields in registration forms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "countries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4172433-d061-41bd-ab73-ebb01724ecef",
+              "name": "Countries and states reference data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "countries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"countries\": [\n    {\n      \"country_code\": \"string\",\n      \"name\": \"string\",\n      \"states\": [\n        {\n          \"state_code\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"state_code\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    {\n      \"country_code\": \"string\",\n      \"name\": \"string\",\n      \"states\": [\n        {\n          \"state_code\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"state_code\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://runsignup.com/Rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://runsignup.com/OAuth/Token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://runsignup.com/OAuth/Authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e4b7e4cc-fcf5-432d-b4f2-5048fe8615be",
+    "name": "RunSignup Corrals Reference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.\n\nContact Support:\n Name: RunSignup Support",
+      "type": "text/plain"
+    }
+  }
+}

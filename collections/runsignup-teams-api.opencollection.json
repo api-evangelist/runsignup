@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RunSignup Corrals Teams API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://runsignup.com/OAuth/Authorize",
+      "accessTokenUrl": "https://runsignup.com/OAuth/Token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/teams",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns teams and groups registered for a race event. Includes team names, members, and team scores where applicable."
+        },
+        {
+          "info": {
+            "name": "Add or Edit Race Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/teams",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new teams or updates existing team records for a race."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

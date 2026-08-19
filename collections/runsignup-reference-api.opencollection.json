@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RunSignup Corrals Reference API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://runsignup.com/OAuth/Authorize",
+      "accessTokenUrl": "https://runsignup.com/OAuth/Token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Countries and States",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/countries",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of all countries with their state/province subdivisions. Used as reference data for address fields in registration forms."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

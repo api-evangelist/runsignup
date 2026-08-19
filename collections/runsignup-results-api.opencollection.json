@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RunSignup Corrals Results API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://runsignup.com/OAuth/Authorize",
+      "accessTokenUrl": "https://runsignup.com/OAuth/Token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/get-results",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific event ID"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all results across all result sets for a race. Includes placing, finish time, chip time, and division results for each participant."
+        },
+        {
+          "info": {
+            "name": "Post Full Race Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/full-results",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits complete race results for an event. Each result includes registration ID, place, clock time, and optionally chip time. This is the primary endpoint used by timing systems to upload results."
+        },
+        {
+          "info": {
+            "name": "Post Finishing Times",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/finishing-times",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts finishing time data for participants in an event. Designed for real-time results updates from timing systems during or after a race."
+        },
+        {
+          "info": {
+            "name": "Set Race Start Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/start-time",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the official start time for a race event. Used by timing systems to record the gun time or wave start time."
+        },
+        {
+          "info": {
+            "name": "Clear Race Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/clear-results",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes all results for a specified result set. Use with caution as this operation cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Import Results from CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/race/:race_id/results/csv-import",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "event_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Imports race results from a CSV file upload. The CSV must include at minimum bib number and finish time columns."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RunSignup Corrals Users API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://runsignup.com/OAuth/Authorize",
+      "accessTokenUrl": "https://runsignup.com/OAuth/Token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Partner Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/users",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of users associated with a partner account."
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/user/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique user ID"
+              }
+            ]
+          },
+          "docs": "Returns detailed profile information for a specific user account."
+        },
+        {
+          "info": {
+            "name": "Create User Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runsignup.com/Rest/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new RunSignup user account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

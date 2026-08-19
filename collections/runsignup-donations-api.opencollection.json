@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RunSignup Corrals Donations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://runsignup.com/OAuth/Authorize",
+      "accessTokenUrl": "https://runsignup.com/OAuth/Token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Donations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Race Donations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runsignup.com/Rest/race/:race_id/donations/list",
+            "params": [
+              {
+                "name": "race_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the race"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "results_per_page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of donations made in association with race registrations. Includes donor information, amount, and associated fundraiser."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
