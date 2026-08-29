@@ -7,6 +7,19 @@ description: >-
   and event analytics into their own applications. The API supports OAuth 2.0 authentication and covers 100+ endpoints
   across 29 categories for comprehensive event lifecycle management.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -299,6 +312,8 @@ apis:
   - type: JSONLD
     url: json-ld/runsignup-context.jsonld
 common:
+  - type: IssueTracker
+    url: https://github.com/RunSignUp-Team/OpenSource/issues
   - type: AgenticAccess
     url: agentic-access/runsignup-agentic-access.yml
   - type: DomainSecurity
