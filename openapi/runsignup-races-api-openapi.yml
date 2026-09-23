@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RunSignup Corrals Races API
-  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.
+  title: RunSignup Races API
+  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform.
   version: '1.0'
   contact:
     name: RunSignup Support
@@ -232,6 +232,11 @@ components:
           type: integer
         age_max:
           type: integer
+    RaceResponse:
+      type: object
+      properties:
+        race:
+          $ref: '#/components/schemas/Race'
     RaceListResponse:
       type: object
       properties:
@@ -246,11 +251,6 @@ components:
           type: integer
         num_results:
           type: integer
-    RaceResponse:
-      type: object
-      properties:
-        race:
-          $ref: '#/components/schemas/Race'
   responses:
     NotFound:
       description: Resource not found

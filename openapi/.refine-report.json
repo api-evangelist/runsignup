@@ -1,15 +1,7 @@
 {
   "provider": "runsignup",
   "sources": [
-    "runsignup-corrals-api-openapi.yml",
-    "runsignup-divisions-api-openapi.yml",
-    "runsignup-donations-api-openapi.yml",
-    "runsignup-participants-api-openapi.yml",
-    "runsignup-races-api-openapi.yml",
-    "runsignup-reference-api-openapi.yml",
-    "runsignup-results-api-openapi.yml",
-    "runsignup-teams-api-openapi.yml",
-    "runsignup-users-api-openapi.yml"
+    "_original/runsignup-openapi.yml"
   ],
   "outputs": [
     "runsignup-corrals-api-openapi.yml",
@@ -25,6 +17,20 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "runsignup-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "runsignup-corrals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-divisions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-donations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-participants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-races-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-results-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "runsignup-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

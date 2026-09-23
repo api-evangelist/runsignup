@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RunSignup Corrals Divisions API
-  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform. It enables race directors, timing companies, affiliates, and technology partners to integrate race registration, participant management, results posting, bib and chip assignment, division management, team management, fundraising, volunteer management, and user account management. The API covers 100+ endpoints across 29 categories. Authentication uses OAuth 2.0 (preferred) or permanent API keys for partners and timers. The base URL is https://runsignup.com/Rest and responses are available in JSON or XML format.
+  title: RunSignup Divisions API
+  description: The RunSignup REST API provides access to race and event management operations for the RunSignup platform.
   version: '1.0'
   contact:
     name: RunSignup Support
@@ -53,13 +53,6 @@ components:
         error_msg:
           type: string
           description: Human-readable error message
-    DivisionsResponse:
-      type: object
-      properties:
-        divisions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Division'
     Division:
       type: object
       properties:
@@ -80,6 +73,13 @@ components:
           type: integer
         event_id:
           type: integer
+    DivisionsResponse:
+      type: object
+      properties:
+        divisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Division'
   responses:
     NotFound:
       description: Resource not found
