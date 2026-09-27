@@ -192,49 +192,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
-    Result:
-      type: object
-      properties:
-        result_id:
-          type: integer
-        registration_id:
-          type: integer
-        bib_num:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        clock_time:
-          type: string
-          description: Clock time from gun start (HH:MM:SS.ms)
-        chip_time:
-          type: string
-          description: Net chip time (HH:MM:SS.ms)
-        place_overall:
-          type: integer
-        place_gender:
-          type: integer
-        place_division:
-          type: integer
-        gender:
-          type: string
-        age:
-          type: integer
-        event_id:
-          type: integer
-        pace:
-          type: string
     FullResultsRequest:
       type: object
       required:
@@ -269,6 +246,58 @@ components:
               chip_time:
                 type: string
                 description: Net chip time (HH:MM:SS.ms)
+    Result:
+      type: object
+      properties:
+        result_id:
+          type: integer
+        registration_id:
+          type: integer
+        bib_num:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        clock_time:
+          type: string
+          description: Clock time from gun start (HH:MM:SS.ms)
+        chip_time:
+          type: string
+          description: Net chip time (HH:MM:SS.ms)
+        place_overall:
+          type: integer
+        place_gender:
+          type: integer
+        place_division:
+          type: integer
+        gender:
+          type: string
+        age:
+          type: integer
+        event_id:
+          type: integer
+        pace:
+          type: string
+    FinishingTimesRequest:
+      type: object
+      required:
+      - event_id
+      - times
+      properties:
+        event_id:
+          type: integer
+        times:
+          type: array
+          items:
+            type: object
+            properties:
+              chip_num:
+                type: string
+              bib_num:
+                type: string
+              finish_time:
+                type: string
     ResultsResponse:
       type: object
       properties:
@@ -294,44 +323,15 @@ components:
                 type: integer
               message:
                 type: string
-    FinishingTimesRequest:
+    ErrorResponse:
       type: object
-      required:
-      - event_id
-      - times
       properties:
-        event_id:
-          type: integer
-        times:
-          type: array
-          items:
-            type: object
-            properties:
-              chip_num:
-                type: string
-              bib_num:
-                type: string
-              finish_time:
-                type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - invalid or missing authentication
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
   parameters:
     RaceId:
       name: race_id

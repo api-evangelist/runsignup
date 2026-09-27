@@ -43,37 +43,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
-    Corral:
-      type: object
-      properties:
-        corral_id:
-          type: integer
-        name:
-          type: string
-          description: Corral name (e.g., "A", "Elite")
-        start_time:
-          type: string
-        event_id:
-          type: integer
-        participant_count:
-          type: integer
-    CorralsResponse:
-      type: object
-      properties:
-        corrals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Corral'
   responses:
     NotFound:
       description: Resource not found
@@ -95,6 +64,37 @@ components:
       description: The unique ID of the race
       schema:
         type: integer
+  schemas:
+    CorralsResponse:
+      type: object
+      properties:
+        corrals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Corral'
+    Corral:
+      type: object
+      properties:
+        corral_id:
+          type: integer
+        name:
+          type: string
+          description: Corral name (e.g., "A", "Elite")
+        start_time:
+          type: string
+        event_id:
+          type: integer
+        participant_count:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     OAuth2:
       type: oauth2

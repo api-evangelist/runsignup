@@ -160,42 +160,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
-    ParticipantUpdateRequest:
-      type: object
-      properties:
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
-    Address:
-      type: object
-      properties:
-        street:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zipcode:
-          type: string
-        country_code:
-          type: string
-    BibChipResponse:
-      type: object
-      properties:
-        bib_chip_assignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/BibChipAssignment'
     ParticipantUpdateResponse:
       type: object
       properties:
@@ -212,6 +176,62 @@ components:
                 type: integer
               message:
                 type: string
+    BibChipResponse:
+      type: object
+      properties:
+        bib_chip_assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibChipAssignment'
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        country_code:
+          type: string
+    ParticipantListResponse:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/Participant'
+        total_results:
+          type: integer
+        num_results:
+          type: integer
+    BibChipAssignment:
+      type: object
+      properties:
+        registration_id:
+          type: integer
+        bib_num:
+          type: string
+        chip_num:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        event_id:
+          type: integer
+    ParticipantUpdateRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
     Participant:
       type: object
       properties:
@@ -260,44 +280,32 @@ components:
         last_modified:
           type: string
           format: date-time
-    BibChipAssignment:
+    ErrorResponse:
       type: object
       properties:
-        registration_id:
-          type: integer
-        bib_num:
+        error:
           type: string
-        chip_num:
+          description: Error code
+        error_msg:
           type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        event_id:
-          type: integer
-    ParticipantListResponse:
-      type: object
-      properties:
-        participants:
-          type: array
-          items:
-            type: object
-            properties:
-              user:
-                $ref: '#/components/schemas/Participant'
-        total_results:
-          type: integer
-        num_results:
-          type: integer
+          description: Human-readable error message
+  parameters:
+    RaceId:
+      name: race_id
+      in: path
+      required: true
+      description: The unique ID of the race
+      schema:
+        type: integer
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request - invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -308,14 +316,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    RaceId:
-      name: race_id
-      in: path
-      required: true
-      description: The unique ID of the race
-      schema:
-        type: integer
   securitySchemes:
     OAuth2:
       type: oauth2
