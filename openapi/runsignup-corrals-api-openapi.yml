@@ -43,35 +43,16 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - invalid or missing authentication
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    RaceId:
-      name: race_id
-      in: path
-      required: true
-      description: The unique ID of the race
-      schema:
-        type: integer
   schemas:
-    CorralsResponse:
+    ErrorResponse:
       type: object
       properties:
-        corrals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Corral'
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
     Corral:
       type: object
       properties:
@@ -86,15 +67,34 @@ components:
           type: integer
         participant_count:
           type: integer
-    ErrorResponse:
+    CorralsResponse:
       type: object
       properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
+        corrals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Corral'
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    RaceId:
+      name: race_id
+      in: path
+      required: true
+      description: The unique ID of the race
+      schema:
+        type: integer
   securitySchemes:
     OAuth2:
       type: oauth2

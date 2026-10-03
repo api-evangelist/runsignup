@@ -98,19 +98,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Address:
-      type: object
-      properties:
-        street:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zipcode:
-          type: string
-        country_code:
-          type: string
     CreateUserRequest:
       type: object
       required:
@@ -136,11 +123,6 @@ components:
           - X
         address:
           $ref: '#/components/schemas/Address'
-    UserResponse:
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
     UsersResponse:
       type: object
       properties:
@@ -148,6 +130,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
+    UserResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        country_code:
+          type: string
     User:
       type: object
       properties:
@@ -172,15 +181,6 @@ components:
         last_modified:
           type: string
           format: date-time
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
   responses:
     BadRequest:
       description: Bad request - invalid parameters
@@ -188,14 +188,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - invalid or missing authentication
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
