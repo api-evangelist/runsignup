@@ -160,6 +160,20 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    ParticipantUpdateRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+    BibChipResponse:
+      type: object
+      properties:
+        bib_chip_assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibChipAssignment'
     ParticipantListResponse:
       type: object
       properties:
@@ -174,6 +188,19 @@ components:
           type: integer
         num_results:
           type: integer
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        country_code:
+          type: string
     BibChipAssignment:
       type: object
       properties:
@@ -189,44 +216,6 @@ components:
           type: string
         event_id:
           type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
-    Address:
-      type: object
-      properties:
-        street:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zipcode:
-          type: string
-        country_code:
-          type: string
-    ParticipantUpdateResponse:
-      type: object
-      properties:
-        added:
-          type: integer
-        updated:
-          type: integer
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              registration_id:
-                type: integer
-              message:
-                type: string
     Participant:
       type: object
       properties:
@@ -275,27 +264,32 @@ components:
         last_modified:
           type: string
           format: date-time
-    BibChipResponse:
+    ParticipantUpdateResponse:
       type: object
       properties:
-        bib_chip_assignments:
+        added:
+          type: integer
+        updated:
+          type: integer
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/BibChipAssignment'
-    ParticipantUpdateRequest:
+            type: object
+            properties:
+              registration_id:
+                type: integer
+              message:
+                type: string
+    ErrorResponse:
       type: object
       properties:
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized - invalid or missing authentication
       content:
@@ -304,6 +298,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
       content:
         application/json:
           schema:

@@ -68,16 +68,33 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
+    TeamsUpdateRequest:
       type: object
       properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
     TeamsResponse:
       type: object
       properties:
@@ -87,13 +104,6 @@ components:
             $ref: '#/components/schemas/Team'
         total_results:
           type: integer
-    TeamsUpdateRequest:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     Team:
       type: object
       properties:
@@ -108,25 +118,15 @@ components:
           type: integer
         captain_user_id:
           type: integer
-  responses:
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - invalid or missing authentication
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
   parameters:
     RaceId:
       name: race_id

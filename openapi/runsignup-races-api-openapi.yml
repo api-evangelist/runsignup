@@ -131,20 +131,39 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    RaceResponse:
+    Event:
       type: object
       properties:
-        race:
-          $ref: '#/components/schemas/Race'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
+        event_id:
+          type: integer
+          description: Unique event ID within the race
+        name:
           type: string
-          description: Error code
-        error_msg:
+          description: Event name (e.g., "5K Run", "Half Marathon")
+        start_time:
           type: string
-          description: Human-readable error message
+          description: Event start time in race's local timezone
+        end_time:
+          type: string
+        distance:
+          type: number
+          description: Event distance
+        distance_unit:
+          type: string
+          enum:
+          - K
+          - M
+          - Miles
+        max_participants:
+          type: integer
+        registration_opens:
+          type: string
+        registration_closes:
+          type: string
+        age_min:
+          type: integer
+        age_max:
+          type: integer
     RaceListResponse:
       type: object
       properties:
@@ -159,6 +178,11 @@ components:
           type: integer
         num_results:
           type: integer
+    RaceResponse:
+      type: object
+      properties:
+        race:
+          $ref: '#/components/schemas/Race'
     Race:
       type: object
       properties:
@@ -218,46 +242,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Event'
-    Event:
+    ErrorResponse:
       type: object
       properties:
-        event_id:
-          type: integer
-          description: Unique event ID within the race
-        name:
+        error:
           type: string
-          description: Event name (e.g., "5K Run", "Half Marathon")
-        start_time:
+          description: Error code
+        error_msg:
           type: string
-          description: Event start time in race's local timezone
-        end_time:
-          type: string
-        distance:
-          type: number
-          description: Event distance
-        distance_unit:
-          type: string
-          enum:
-          - K
-          - M
-          - Miles
-        max_participants:
-          type: integer
-        registration_opens:
-          type: string
-        registration_closes:
-          type: string
-        age_min:
-          type: integer
-        age_max:
-          type: integer
+          description: Human-readable error message
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized - invalid or missing authentication
       content:
@@ -266,6 +260,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
       content:
         application/json:
           schema:
