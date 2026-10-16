@@ -2,11 +2,25 @@
   "repo": "runsignup",
   "feeds": [
     {
-      "source": "https://github.com/RunSignUp-Team/OpenSource",
-      "feed_url": "https://github.com/RunSignUp-Team/OpenSource",
+      "source": "https://info.runsignup.com/blog/",
+      "feed_url": "https://info.runsignup.com/blog/feed/",
+      "title": "",
+      "saved": 4,
+      "method": "discovered"
+    },
+    {
+      "source": "https://info.runsignup.com/feed/",
+      "feed_url": "https://info.runsignup.com/feed/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "feed"
+    },
+    {
+      "source": "https://runsignup.blog",
+      "feed_url": "https://runsignup.blog/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     },
     {
       "source": "https://runsignup.blog/feed/",
@@ -14,10 +28,17 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://github.com/RunSignUp-Team/OpenSource",
+      "feed_url": "https://github.com/RunSignUp-Team/OpenSource",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 13,
-  "fetched": "2026-10-03T12:30:02Z",
+  "post_count": 17,
+  "fetched": "2026-10-10T13:15:00Z",
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
