@@ -97,33 +97,53 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized - invalid or missing authentication
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    UsersResponse:
+    ErrorResponse:
       type: object
       properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: string
+        gender:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        created:
+          type: string
+          format: date-time
+        last_modified:
+          type: string
+          format: date-time
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        country_code:
+          type: string
     UserResponse:
       type: object
       properties:
@@ -154,52 +174,32 @@ components:
           - X
         address:
           $ref: '#/components/schemas/Address'
-    Address:
+    UsersResponse:
       type: object
       properties:
-        street:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zipcode:
-          type: string
-        country_code:
-          type: string
-    User:
-      type: object
-      properties:
-        user_id:
-          type: integer
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-          format: email
-        dob:
-          type: string
-        gender:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-        created:
-          type: string
-          format: date-time
-        last_modified:
-          type: string
-          format: date-time
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     OAuth2:
       type: oauth2

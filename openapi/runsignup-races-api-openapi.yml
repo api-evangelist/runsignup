@@ -130,7 +130,24 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    RaceId:
+      name: race_id
+      in: path
+      required: true
+      description: The unique ID of the race
+      schema:
+        type: integer
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        error_msg:
+          type: string
+          description: Human-readable error message
     Event:
       type: object
       properties:
@@ -164,6 +181,11 @@ components:
           type: integer
         age_max:
           type: integer
+    RaceResponse:
+      type: object
+      properties:
+        race:
+          $ref: '#/components/schemas/Race'
     RaceListResponse:
       type: object
       properties:
@@ -178,11 +200,6 @@ components:
           type: integer
         num_results:
           type: integer
-    RaceResponse:
-      type: object
-      properties:
-        race:
-          $ref: '#/components/schemas/Race'
     Race:
       type: object
       properties:
@@ -242,15 +259,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Event'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error code
-        error_msg:
-          type: string
-          description: Human-readable error message
   responses:
     Unauthorized:
       description: Unauthorized - invalid or missing authentication
@@ -270,14 +278,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    RaceId:
-      name: race_id
-      in: path
-      required: true
-      description: The unique ID of the race
-      schema:
-        type: integer
   securitySchemes:
     OAuth2:
       type: oauth2
